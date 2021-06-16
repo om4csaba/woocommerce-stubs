@@ -5462,6 +5462,128 @@ namespace Automattic\WooCommerce\Admin\API {
         }
     }
     /**
+     * REST API Favorites controller class.
+     *
+     * @extends WC_REST_CRUD_Controller
+     */
+    class NavigationFavorites extends \WC_REST_Data_Controller
+    {
+        /**
+         * Endpoint namespace.
+         *
+         * @var string
+         */
+        protected $namespace = 'wc-admin';
+        /**
+         * Route base.
+         *
+         * @var string
+         */
+        protected $rest_base = 'navigation/favorites';
+        /**
+         * Error code to status code mapping.
+         *
+         * @var array
+         */
+        protected $error_to_status_map = array('woocommerce_favorites_invalid_request' => 400, 'woocommerce_favorites_already_exists' => 409, 'woocommerce_favorites_does_not_exist' => 404, 'woocommerce_favorites_invalid_user' => 400, 'woocommerce_favorites_unauthenticated' => 401);
+        /**
+         * Register the routes
+         */
+        public function register_routes()
+        {
+        }
+        /**
+         * Get all favorites.
+         *
+         * @param WP_REST_Request $request Request data.
+         * @return WP_REST_Response
+         */
+        public function get_items($request)
+        {
+        }
+        /**
+         * Get all favorites of current user.
+         *
+         * @param WP_REST_Request $request Request data.
+         * @return WP_REST_Response
+         */
+        public function get_items_by_current_user($request)
+        {
+        }
+        /**
+         * Add a favorite.
+         *
+         * @param WP_REST_Request $request Request data.
+         * @return WP_REST_Response
+         */
+        public function add_item($request)
+        {
+        }
+        /**
+         * Add a favorite for current user.
+         *
+         * @param WP_REST_Request $request Request data.
+         * @return WP_REST_Response
+         */
+        public function add_item_by_current_user($request)
+        {
+        }
+        /**
+         * Delete a favorite.
+         *
+         * @param WP_REST_Request $request Request data.
+         * @return WP_REST_Response
+         */
+        public function delete_item($request)
+        {
+        }
+        /**
+         * Delete a favorite for current user.
+         *
+         * @param WP_REST_Request $request Request data.
+         * @return WP_REST_Response
+         */
+        public function delete_item_by_current_user($request)
+        {
+        }
+        /**
+         * Check whether a given request has permission to create favorites.
+         *
+         * @param  WP_REST_Request $request Full details about the request.
+         * @return WP_Error|boolean
+         */
+        public function add_item_permissions_check($request)
+        {
+        }
+        /**
+         * Check whether a given request has permission to delete notes.
+         *
+         * @param  WP_REST_Request $request Full details about the request.
+         * @return WP_Error|boolean
+         */
+        public function delete_item_permissions_check($request)
+        {
+        }
+        /**
+         * Always allow for operations that only impact current user
+         *
+         * @param  WP_REST_Request $request Full details about the request.
+         * @return WP_Error|boolean
+         */
+        public function current_user_permissions_check($request)
+        {
+        }
+        /**
+         * Accept an instance of WP_Error and add the appropriate data for REST transit.
+         *
+         * @param  WP_Error $error Error to prepare.
+         * @return WP_Error
+         */
+        protected function prepare_error($error)
+        {
+        }
+    }
+    /**
      * REST API Admin Notes controller class.
      *
      * @extends WC_REST_CRUD_Controller
@@ -5612,6 +5734,19 @@ namespace Automattic\WooCommerce\Admin\API {
          * @return string A fully formed URL.
          */
         public function prepare_query_for_response($query)
+        {
+        }
+        /**
+         * Maybe add a nonce to a URL.
+         *
+         * @link https://codex.wordpress.org/WordPress_Nonces
+         *
+         * @param string $url The URL needing a nonce.
+         * @param string $action The nonce action.
+         * @param string $name The nonce anme.
+         * @return string A fully formed URL.
+         */
+        private function maybe_add_nonce_to_url(string $url, string $action = '', string $name = '') : string
         {
         }
         /**
@@ -6206,14 +6341,6 @@ namespace Automattic\WooCommerce\Admin\API {
         {
         }
         /**
-         * Gets an array of plugins that can be installed & activated.
-         *
-         * @return array
-         */
-        public static function get_allowed_plugins()
-        {
-        }
-        /**
          * Returns a list of active plugins in API format.
          *
          * @return array Active plugins
@@ -6244,6 +6371,15 @@ namespace Automattic\WooCommerce\Admin\API {
          * @return WP_Error|array Plugin Status
          */
         public function activate_plugins($request)
+        {
+        }
+        /**
+         * Return recommended payment plugins.
+         *
+         * @param WP_REST_Request $request Full details about the request.
+         * @return \WP_Error|\WP_HTTP_Response|\WP_REST_Response
+         */
+        public function recommended_payment_plugins($request)
         {
         }
         /**
@@ -8611,17 +8747,6 @@ namespace Automattic\WooCommerce\Admin\API\Reports\Customers {
         {
         }
         /**
-         * Trigger a customer update if their "last active" meta value was changed.
-         * Function expects to be hooked into the `updated_user_meta` action.
-         *
-         * @param int    $meta_id ID of updated metadata entry.
-         * @param int    $user_id ID of the user being updated.
-         * @param string $meta_key Meta key being updated.
-         */
-        public static function update_registered_customer_via_last_active($meta_id, $user_id, $meta_key)
-        {
-        }
-        /**
          * Sync customers data after an order was deleted.
          *
          * When an order is deleted, the customer record is deleted from the
@@ -9608,6 +9733,15 @@ namespace Automattic\WooCommerce\Admin\API\Reports\Orders {
         {
         }
         /**
+         * Get customer name column export value.
+         *
+         * @param array $customer Customer from report row.
+         * @return string
+         */
+        protected function get_customer_name($customer)
+        {
+        }
+        /**
          * Get products column export value.
          *
          * @param array $products Products from report row.
@@ -9711,6 +9845,15 @@ namespace Automattic\WooCommerce\Admin\API\Reports\Orders {
          * @param array $query_args  Query parameters.
          */
         protected function include_extended_info(&$orders_data, $query_args)
+        {
+        }
+        /**
+         * Returns oreders that have a parent id
+         *
+         * @param array $orders Orders array.
+         * @return array
+         */
+        protected function get_orders_with_parent_id($orders)
         {
         }
         /**
@@ -12640,7 +12783,7 @@ namespace Automattic\WooCommerce\Admin\Composer {
          *
          * @var string
          */
-        const VERSION = '2.0.2';
+        const VERSION = '2.3.1';
         /**
          * Package active.
          *
@@ -12704,6 +12847,12 @@ namespace Automattic\WooCommerce\Admin\Composer {
          * and adds/removes DeactivatePlugin note as necessary.
          */
         public static function check_outdated_wca_plugin()
+        {
+        }
+        /**
+         * Checks if notes have been initialized.
+         */
+        private static function is_notes_initialized()
         {
         }
     }
@@ -13299,21 +13448,29 @@ namespace Automattic\WooCommerce\Admin\Features {
          */
         const SHOWN_FOR_ACTIONS_OPTION_NAME = 'woocommerce_ces_shown_for_actions';
         /**
-         * Action name for product add/publish.
-         */
-        const PRODUCT_ADD_PUBLISH_ACTION_NAME = 'product_add_publish';
-        /**
-         * Action name for product update.
-         */
-        const PRODUCT_UPDATE_ACTION_NAME = 'product_update';
-        /**
-         * Action name for shop order update.
-         */
-        const SHOP_ORDER_UPDATE_ACTION_NAME = 'shop_order_update';
-        /**
          * Action name for settings change.
          */
         const SETTINGS_CHANGE_ACTION_NAME = 'settings_change';
+        /**
+         * Action name for add product categories.
+         */
+        const ADD_PRODUCT_CATEGORIES_ACTION_NAME = 'add_product_categories';
+        /**
+         * Action name for add product tags.
+         */
+        const ADD_PRODUCT_TAGS_ACTION_NAME = 'add_product_tags';
+        /*
+         * Action name for add product attributes.
+         */
+        const ADD_PRODUCT_ATTRIBUTES_ACTION_NAME = 'add_product_attributes';
+        /**
+         * Action name for import products.
+         */
+        const IMPORT_PRODUCTS_ACTION_NAME = 'import_products';
+        /**
+         * Action name for search.
+         */
+        const SEARCH_ACTION_NAME = 'ces_search';
         /**
          * Label for the snackbar that appears when a user submits the survey.
          *
@@ -13333,23 +13490,20 @@ namespace Automattic\WooCommerce\Admin\Features {
         {
         }
         /**
-         * Hook into the post status lifecycle, to detect relevant user actions
-         * that we want to survey about.
+         * Returns a generated script for tracking tags added on edit-tags.php page.
+         * CES survey is triggered via direct access to wc/customer-effort-score store
+         * via wp.data.dispatch method.
          *
-         * @param string $new_status The new status.
-         * @param string $old_status The old status.
-         * @param Post   $post The post.
-         */
-        public function run_on_transition_post_status($new_status, $old_status, $post)
-        {
-        }
-        /**
-         * Maybe enqueue the CES survey, if product is being added or edited.
+         * Due to lack of options to directly hook ourselves into the ajax post request
+         * initiated by edit-tags.php page, we infer a successful request by observing
+         * an increase of the number of rows in tags table
          *
-         * @param string $new_status The new status.
-         * @param string $old_status The old status.
+         * @param string $action Action name for the survey.
+         * @param string $label Label for the snackbar.
+         *
+         * @return string Generated JavaScript to append to page.
          */
-        private function maybe_enqueue_ces_survey_for_product($new_status, $old_status)
+        private function get_script_track_edit_php($action, $label)
         {
         }
         /**
@@ -13387,21 +13541,13 @@ namespace Automattic\WooCommerce\Admin\Features {
         {
         }
         /**
-         * Enqueue the CES survey trigger for a new product.
+         * Enqueue the CES survey on using search dynamically.
+         *
+         * @param string $search_area Search area such as "product" or "shop_order".
+         * @param string $page_now Value of window.pagenow.
+         * @param string $admin_page Value of window.adminpage.
          */
-        private function enqueue_ces_survey_for_new_product()
-        {
-        }
-        /**
-         * Enqueue the CES survey trigger for an existing product.
-         */
-        private function enqueue_ces_survey_for_edited_product()
-        {
-        }
-        /**
-         * Enqueue the CES survey trigger for an existing shop order.
-         */
-        private function enqueue_ces_survey_for_edited_shop_order()
+        public function enqueue_ces_survey_for_search($search_area, $page_now, $admin_page)
         {
         }
         /**
@@ -13414,9 +13560,39 @@ namespace Automattic\WooCommerce\Admin\Features {
         {
         }
         /**
+         * Appends a script to footer to trigger CES on adding product categories.
+         */
+        public function add_script_track_product_categories()
+        {
+        }
+        /**
+         * Appends a script to footer to trigger CES on adding product tags.
+         */
+        public function add_script_track_product_tags()
+        {
+        }
+        /**
+         * Maybe enqueue the CES survey on product import, if step is done.
+         */
+        public function run_on_product_import()
+        {
+        }
+        /**
          * Enqueue the CES survey trigger for setting changes.
          */
         public function run_on_update_options()
+        {
+        }
+        /**
+         * Enqueue the CES survey on adding new product attributes.
+         */
+        public function run_on_add_product_attributes()
+        {
+        }
+        /**
+         * Determine on initiating CES survey on searching for product or orders.
+         */
+        public function run_on_load_edit_php()
         {
         }
     }
@@ -13493,6 +13669,15 @@ namespace Automattic\WooCommerce\Admin\Features {
         {
         }
         /**
+         * Enable a toggleable beta feature.
+         *
+         * @param string $feature Feature name.
+         * @return bool
+         */
+        public static function enable($feature)
+        {
+        }
+        /**
          * Disable a toggleable beta feature.
          *
          * @param string $feature Feature name.
@@ -13532,10 +13717,9 @@ namespace Automattic\WooCommerce\Admin\Features {
         /**
          * Conditionally loads the beta features tracking modal.
          *
-         * @param array $settings Settings.
-         * @return array
+         * @param string $hook Page hook.
          */
-        public static function maybe_load_beta_features_modal($settings)
+        public static function maybe_load_beta_features_modal($hook)
         {
         }
         /**
@@ -13600,16 +13784,6 @@ namespace Automattic\WooCommerce\Admin\Features {
          * the top level link for 'WooCommerce'.
          */
         public function update_link_structure()
-        {
-        }
-        /**
-         * Gets an array of plugins that can be installed & activated via the home screen.
-         *
-         * @param array $plugins Array of plugin slugs to be allowed.
-         *
-         * @return array
-         */
-        public static function get_homescreen_allowed_plugins($plugins)
         {
         }
         /**
@@ -13807,6 +13981,22 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
         {
         }
         /**
+         * Get items for tools category.
+         *
+         * @returna array
+         */
+        public static function get_tool_items()
+        {
+        }
+        /**
+         * Get legacy report items.
+         *
+         * @return array
+         */
+        public static function get_legacy_report_items()
+        {
+        }
+        /**
          * Register all core post types.
          */
         public function register_post_types()
@@ -13824,6 +14014,62 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
          * @return array
          */
         public static function get_excluded_items()
+        {
+        }
+    }
+    /**
+     * Contains logic for the WooCommerce Navigation menu.
+     */
+    class Favorites
+    {
+        /**
+         * Array index of menu capability.
+         *
+         * @var int
+         */
+        const META_NAME = 'navigation_favorites';
+        /**
+         * Get class instance.
+         */
+        public static final function instance()
+        {
+        }
+        /**
+         * Set given favorites string to the user meta data.
+         *
+         * @param string|number $user_id User id.
+         * @param array         $favorites Array of favorite values to set.
+         */
+        private static function set_meta_value($user_id, $favorites)
+        {
+        }
+        /**
+         * Add item to favorites
+         *
+         * @param string        $item_id Identifier of item to add.
+         * @param string|number $user_id Identifier of user to add to.
+         * @return WP_Error|Boolean   Throws exception if item already exists.
+         */
+        public static function add_item($item_id, $user_id = null)
+        {
+        }
+        /**
+         * Remove item from favorites
+         *
+         * @param string        $item_id Identifier of item to remove.
+         * @param string|number $user_id Identifier of user to remove from.
+         * @return \WP_Error|Boolean   Throws exception if item does not exist.
+         */
+        public static function remove_item($item_id, $user_id = null)
+        {
+        }
+        /**
+         * Get all registered favorites.
+         *
+         * @param string|number $user_id Identifier of user to query.
+         * @return WP_Error|Array
+         */
+        public static function get_all($user_id = null)
         {
         }
     }
@@ -13858,27 +14104,12 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
         {
         }
         /**
-         * Overwrites the allowed features array using a local `feature-config.php` file.
-         *
-         * @param array $features Array of feature slugs.
-         */
-        public function maybe_remove_nav_feature($features)
-        {
-        }
-        /**
          * Preload options to prime state of the application.
          *
          * @param array $options Array of options to preload.
          * @return array
          */
         public function preload_options($options)
-        {
-        }
-        /**
-         * Set up a div for the navigation.
-         * The initial contents here are meant as a place loader for when the PHP page initialy loads.
-         */
-        public static function embed_navigation()
         {
         }
         /**
@@ -13933,6 +14164,10 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
          */
         const CSS_CLASSES = 4;
         /**
+         * Array of usable menu IDs.
+         */
+        const MENU_IDS = array('primary', 'favorites', 'plugins', 'secondary');
+        /**
          * Store menu items.
          *
          * @var array
@@ -13985,13 +14220,12 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
          *
          * @param array $args Array containing the necessary arguments.
          *    $args = array(
-         *      'id'         => (string) The unique ID of the menu item. Required.
-         *      'title'      => (string) Title of the menu item. Required.
-         *      'capability' => (string) Capability to view this menu item.
-         *      'url'        => (string) URL or callback to be used. Required.
-         *      'order'      => (int) Menu item order.
-         *      'migrate'    => (bool) Whether or not to hide the item in the wp admin menu.
-         *      'menuId'     => (string) The ID of the menu to add the category to.
+         *      'id'      => (string) The unique ID of the menu item. Required.
+         *      'title'   => (string) Title of the menu item. Required.
+         *      'url'     => (string) URL or callback to be used. Required.
+         *      'order'   => (int) Menu item order.
+         *      'migrate' => (bool) Whether or not to hide the item in the wp admin menu.
+         *      'menuId'  => (string) The ID of the menu to add the category to.
          *    ).
          */
         private static function add_category($args)
@@ -14030,12 +14264,11 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
          *
          * @param array $args Array containing the necessary arguments.
          *    $args = array(
-         *      'id'         => (string) The unique ID of the menu item. Required.
-         *      'title'      => (string) Title of the menu item. Required.
-         *      'capability' => (string) Capability to view this menu item.
-         *      'url'        => (string) URL or callback to be used. Required.
-         *      'migrate'    => (bool) Whether or not to hide the item in the wp admin menu.
-         *      'order'      => (int) Menu item order.
+         *      'id'      => (string) The unique ID of the menu item. Required.
+         *      'title'   => (string) Title of the menu item. Required.
+         *      'url'     => (string) URL or callback to be used. Required.
+         *      'migrate' => (bool) Whether or not to hide the item in the wp admin menu.
+         *      'order'   => (int) Menu item order.
          *    ).
          */
         public static function add_plugin_category($args)
@@ -14101,6 +14334,14 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
         {
         }
         /**
+         * Add an item or taxonomy.
+         *
+         * @param array $menu_item Menu item.
+         */
+        public function add_item_and_taxonomy($menu_item)
+        {
+        }
+        /**
          * Migrate any remaining WooCommerce child items.
          *
          * @param array $menu Menu items.
@@ -14155,12 +14396,11 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
         {
         }
         /**
-         * Gets the menu item data for use in the client.
+         * Gets the menu item data mapped by category and menu ID.
          *
-         * @param array $menu_items Menu items to prepare.
          * @return array
          */
-        public static function get_prepared_menu_item_data($menu_items)
+        public static function get_mapped_menu_items()
         {
         }
         /**
@@ -14181,7 +14421,7 @@ namespace Automattic\WooCommerce\Admin\Features\Navigation {
         /**
          * Class instance.
          *
-         * @var Menu instance
+         * @var Screen instance
          */
         protected static $instance = null;
         /**
@@ -14484,6 +14724,8 @@ namespace Automattic\WooCommerce\Admin\Features {
          * Check if theme has declared support for WooCommerce.
          *
          * @param WP_Theme $theme Theme to check.
+         * @link https://developer.woocommerce.com/2017/12/09/wc-3-3-will-look-great-on-all-the-themes/
+         * @deprecated 2.2.0
          * @return bool
          */
         public static function has_woocommerce_support($theme)
@@ -14538,17 +14780,6 @@ namespace Automattic\WooCommerce\Admin\Features {
          * @return array
          */
         public function preload_settings($options)
-        {
-        }
-        /**
-         * Gets an array of plugins that can be installed & activated via the onboarding wizard.
-         *
-         * @param array $plugins Array of plugin slugs to be allowed.
-         *
-         * @return array
-         * @todo Handle edgecase of where installed plugins may have versioned folder names (i.e. `jetpack-main/jetpack.php`).
-         */
-        public static function get_onboarding_allowed_plugins($plugins)
         {
         }
         /**
@@ -14658,6 +14889,20 @@ namespace Automattic\WooCommerce\Admin\Features {
          * See https://github.com/woocommerce/woocommerce/blob/1ca791f8f2325fe2ee0947b9c47e6a4627366374/includes/class-wc-install.php#L341
          */
         public static function maybe_mark_complete()
+        {
+        }
+        /**
+         * Ensure that Jetpack gets installed and activated ahead of WooCommerce Payments
+         * if both are being installed/activated at the same time.
+         *
+         * See: https://github.com/Automattic/woocommerce-payments/issues/1663
+         * See: https://github.com/Automattic/jetpack/issues/19624
+         *
+         * @param array $plugins A list of plugins to install or activate.
+         *
+         * @return array
+         */
+        public static function activate_and_install_jetpack_ahead_of_wcpay($plugins)
         {
         }
     }
@@ -14834,6 +15079,72 @@ namespace Automattic\WooCommerce\Admin\Features {
         }
     }
     /**
+     * Contains backend logic for the Settings feature.
+     */
+    class Settings
+    {
+        /**
+         * Option name used to toggle this feature.
+         */
+        const TOGGLE_OPTION_NAME = 'woocommerce_settings_enabled';
+        /**
+         * Class instance.
+         *
+         * @var Settings instance
+         */
+        protected static $instance = null;
+        /**
+         * Get class instance.
+         */
+        public static function get_instance()
+        {
+        }
+        /**
+         * Hook into WooCommerce.
+         */
+        public function __construct()
+        {
+        }
+        /**
+         * Add the necessary data to initially load the WooCommerce Settings pages.
+         *
+         * @param array $settings Array of component settings.
+         * @return array Array of component settings.
+         */
+        public static function add_component_settings($settings)
+        {
+        }
+        /**
+         * Add the feature toggle to the features settings.
+         *
+         * @param array $features Feature sections.
+         * @return array
+         */
+        public static function add_feature_toggle($features)
+        {
+        }
+        /**
+         * Registers settings pages.
+         */
+        public function register_pages()
+        {
+        }
+        /**
+         * Replace the Settings page in the original WooCommerce menu.
+         *
+         * @param array $page Page used to replace the original.
+         */
+        protected function replace_settings_page($page)
+        {
+        }
+        /**
+         * Redirect the old settings page URLs to the new ones.
+         */
+        public function redirect_core_settings_pages()
+        {
+        }
+    }
+    /**
      * Shows print shipping label banner on edit order page.
      */
     class ShippingLabelBanner
@@ -14848,16 +15159,6 @@ namespace Automattic\WooCommerce\Admin\Features {
          * Constructor
          */
         public function __construct()
-        {
-        }
-        /**
-         * Gets an array of plugins that can be installed & activated via shipping label prompt.
-         *
-         * @param array $plugins Array of plugin slugs to be allowed.
-         *
-         * @return array
-         */
-        public static function get_shipping_banner_allowed_plugins($plugins)
         {
         }
         /**
@@ -15225,6 +15526,13 @@ namespace Automattic\WooCommerce\Admin {
         {
         }
         /**
+         * Verifies which plugin version is being used. If WooCommerce Admin is installed and activated but not in use
+         * it will show a warning.
+         */
+        public static function is_using_installed_wc_admin_plugin()
+        {
+        }
+        /**
          * Run when plugin is activated (can be WooCommerce or WooCommerce Admin).
          *
          * @param string $filename Activated plugin filename.
@@ -15252,6 +15560,7 @@ namespace Automattic\WooCommerce\Admin {
          * Gets WordPress capability required to use analytics features.
          *
          * @return string
+         * @deprecated since 2.1.0, use value 'view_woocommerce_reports'
          */
         public static function get_analytics_capability()
         {
@@ -15260,6 +15569,7 @@ namespace Automattic\WooCommerce\Admin {
          * Helper function indicating whether the current user has the required analytics capability.
          *
          * @return bool
+         * @deprecated since 2.1.0, use current_user_can( 'view_woocommerce_reports' )
          */
         public static function user_can_analytics()
         {
@@ -15270,7 +15580,7 @@ namespace Automattic\WooCommerce\Admin {
          * @param  string $feature Feature slug.
          * @return bool Returns true if the feature is enabled.
          *
-         * @deprecated since 1.9.0, use Features::exists( $feature )
+         * @deprecated since 1.9.0, use Features::is_enabled( $feature )
          */
         public static function is_feature_enabled($feature)
         {
@@ -15292,6 +15602,18 @@ namespace Automattic\WooCommerce\Admin {
          * @return string URL to asset.
          */
         public static function get_url($file, $ext)
+        {
+        }
+        /**
+         * Gets a script asset registry filename. The asset registry lists dependencies for the given script.
+         *
+         * @param  string $script_path_name Path to where the script asset registry is contained.
+         * @param  string $file File name (without extension).
+         * @return string complete asset filename.
+         *
+         * @throws Exception Throws an exception when a readable asset registry file cannot be found.
+         */
+        public static function get_script_asset_filename($script_path_name, $file)
         {
         }
         /**
@@ -16998,6 +17320,28 @@ namespace Automattic\WooCommerce\Admin\Notes {
         }
     }
     /**
+     * FirstDownlaodableProduct.
+     */
+    class FirstDownlaodableProduct
+    {
+        /**
+         * Note traits.
+         */
+        use \Automattic\WooCommerce\Admin\Notes\NoteTraits;
+        /**
+         * Name of the note for use in the database.
+         */
+        const NOTE_NAME = 'wc-admin-first-downloadable-product';
+        /**
+         * Get the note.
+         *
+         * @return Note
+         */
+        public static function get_note()
+        {
+        }
+    }
+    /**
      * First_Product.
      */
     class FirstProduct
@@ -17104,54 +17448,6 @@ namespace Automattic\WooCommerce\Admin\Notes {
          * @return Note
          */
         protected static function get_note()
-        {
-        }
-    }
-    /**
-     * WC_Admin_Notes_Google_Ads_And_Marketing
-     */
-    class GoogleAdsAndMarketing
-    {
-        /**
-         * Note traits.
-         */
-        use \Automattic\WooCommerce\Admin\Notes\NoteTraits;
-        /**
-         * Name of the note for use in the database.
-         */
-        const NOTE_NAME = 'wc-admin-google-ads-and-marketing';
-        /**
-         * Name of plugin file.
-         */
-        const PLUGIN_FILE = 'kliken-marketing-for-google/kliken-marketing-for-google.php';
-        /**
-         * Possibly add note.
-         */
-        public static function possibly_add_note()
-        {
-        }
-        /**
-         * Get the note.
-         *
-         * @return Note
-         */
-        public static function get_note()
-        {
-        }
-        /**
-         * Determine if Google Ads and Marketing is already active or installed
-         *
-         * @return bool
-         */
-        protected static function is_google_ads_and_marketing_installed()
-        {
-        }
-        /**
-         * Determine the number of orders in the last month
-         *
-         * @return int
-         */
-        protected static function orders_last_month()
         {
         }
     }
@@ -17423,12 +17719,22 @@ namespace Automattic\WooCommerce\Admin\Notes\MerchantEmailNotifications {
         {
         }
         /**
-         * Get email addresses by role to notify.
+         * Get the preferred name for user. First choice is
+         * the user's first name, and then display_name.
+         *
+         * @param WP_User $user Recipient to send the note to.
+         * @return string User's name.
+         */
+        public static function get_merchant_preferred_name($user)
+        {
+        }
+        /**
+         * Get users by role to notify.
          *
          * @param object $note The note to send.
-         * @return array Emails to notify
+         * @return array Users to notify
          */
-        public static function get_notification_email_addresses($note)
+        public static function get_notification_recipients($note)
         {
         }
     }
@@ -17483,6 +17789,14 @@ namespace Automattic\WooCommerce\Admin\Notes\MerchantEmailNotifications {
         {
         }
         /**
+         * Get email headers.
+         *
+         * @return string
+         */
+        public function get_headers()
+        {
+        }
+        /**
          * Get email subject.
          *
          * @return string
@@ -17533,9 +17847,11 @@ namespace Automattic\WooCommerce\Admin\Notes\MerchantEmailNotifications {
         /**
          * Trigger the sending of this email.
          *
-         * @param string $email Email to send the note.
+         * @param string $user_email Email to send the note.
+         * @param int    $user_id User id to to track the note.
+         * @param string $user_name User's name.
          */
-        public function trigger($email)
+        public function trigger($user_email, $user_id, $user_name)
         {
         }
     }
@@ -17626,6 +17942,43 @@ namespace Automattic\WooCommerce\Admin\Notes {
          * @return Note
          */
         public static function get_note()
+        {
+        }
+    }
+    /**
+     * Navigation Nudge.
+     */
+    class NavigationNudge
+    {
+        /**
+         * Note traits.
+         */
+        use \Automattic\WooCommerce\Admin\Notes\NoteTraits;
+        /**
+         * Name of the note for use in the database.
+         */
+        const NOTE_NAME = 'wc-admin-navigation-nudge';
+        /**
+         * Attach hooks.
+         */
+        public function __construct()
+        {
+        }
+        /**
+         * Get the note.
+         *
+         * @return Note
+         */
+        public static function get_note()
+        {
+        }
+        /**
+         * Actions the note when the option is toggled.
+         *
+         * @param string $old_value Old value.
+         * @param string $value     New value.
+         */
+        public static function action_note($old_value, $value)
         {
         }
     }
@@ -18083,6 +18436,20 @@ namespace Automattic\WooCommerce\Admin\Notes {
         public function set_actions($actions)
         {
         }
+        /**
+         * Add a nonce to an existing note action.
+         *
+         * @link https://codex.wordpress.org/WordPress_Nonces
+         *
+         * @param string $note_action_name Name of action to add a nonce to.
+         * @param string $nonce_action The nonce action.
+         * @param string $nonce_name The nonce Name. This is used as the paramater name in the resulting URL for the action.
+         * @return void
+         * @throws \Exception If note name cannot be found.
+         */
+        public function add_nonce_to_action(string $note_action_name, string $nonce_action, string $nonce_name)
+        {
+        }
     }
     /**
      * Admin Notes class.
@@ -18221,6 +18588,25 @@ namespace Automattic\WooCommerce\Admin\Notes {
          * @return Note|bool
          */
         public static function trigger_note_action($note, $triggered_action)
+        {
+        }
+        /**
+         * Record tracks event for a specific user.
+         *
+         * @param int    $user_id The user id we want to record for the event.
+         * @param string $event_name Name of the event to record.
+         * @param array  $params The params to send to the event recording.
+         */
+        public static function record_tracks_event_with_user($user_id, $event_name, $params)
+        {
+        }
+        /**
+         * Record tracks event without using cookies.
+         *
+         * @param string $event_name Name of the event to record.
+         * @param array  $params The params to send to the event recording.
+         */
+        private static function record_tracks_event_without_cookies($event_name, $params)
         {
         }
         /**
@@ -19317,6 +19703,46 @@ namespace Automattic\WooCommerce\Admin {
         }
     }
     /**
+     * Contains backend logic for retrieving payment plugin recommendations.
+     */
+    class PaymentPlugins
+    {
+        /**
+         * Name of recommended plugins transient.
+         *
+         * @var string
+         */
+        const RECOMMENDED_PLUGINS_TRANSIENT = 'wc_recommended_payment_plugins';
+        /**
+         * Class instance.
+         *
+         * @var PaymentPlugins instance
+         */
+        protected static $instance = null;
+        /**
+         * Get class instance.
+         */
+        public static function get_instance()
+        {
+        }
+        /**
+         * Load recommended payment plugins from WooCommerce.com
+         *
+         * @return array
+         */
+        public function get_recommended_plugins()
+        {
+        }
+        /**
+         * Should recommendations be displayed?
+         *
+         * @return bool
+         */
+        private function allow_recommendations()
+        {
+        }
+    }
+    /**
      * Class PluginsHelper
      */
     class PluginsHelper
@@ -19339,6 +19765,14 @@ namespace Automattic\WooCommerce\Admin {
          * @return array
          */
         public static function get_installed_plugin_slugs()
+        {
+        }
+        /**
+         * Get an array of installed plugins with their file paths as a key value pair.
+         *
+         * @return array
+         */
+        public static function get_installed_plugins_paths()
         {
         }
         /**
@@ -19377,6 +19811,49 @@ namespace Automattic\WooCommerce\Admin {
          * @return array|false
          */
         public static function get_plugin_data($plugin)
+        {
+        }
+    }
+    /**
+     * Class PluginsInstaller
+     */
+    class PluginsInstaller
+    {
+        /**
+         * Message option name.
+         */
+        const MESSAGE_OPTION = 'woocommerce_admin_plugin_installer_message';
+        /**
+         * Constructor
+         */
+        public static function init()
+        {
+        }
+        /**
+         * Check if an install or activation is being requested via URL query.
+         */
+        public static function possibly_install_activate_plugins()
+        {
+        }
+        /**
+         * Display the results of installation and activation on the page.
+         *
+         * @param array $install_result Result of installation.
+         * @param array $activate_result Result of activation.
+         */
+        public static function cache_results($install_result, $activate_result)
+        {
+        }
+        /**
+         * Display the results of installation and activation on the page.
+         */
+        public static function display_message()
+        {
+        }
+        /**
+         * Redirect back to the referring page if one exists.
+         */
+        public static function redirect_to_referer()
         {
         }
     }
@@ -20149,6 +20626,7 @@ namespace Automattic\WooCommerce\Admin\RemoteInboxNotifications {
     {
         const SPECS_OPTION_NAME = 'wc_remote_inbox_notifications_specs';
         const STORED_STATE_OPTION_NAME = 'wc_remote_inbox_notifications_stored_state';
+        const WCA_UPDATED_OPTION_NAME = 'wc_remote_inbox_notifications_wca_updated';
         /**
          * Initialize the engine.
          */
@@ -20177,6 +20655,14 @@ namespace Automattic\WooCommerce\Admin\RemoteInboxNotifications {
          * Go through the specs and run them.
          */
         public static function run()
+        {
+        }
+        /**
+         * Set an option indicating that WooCommerce Admin has just been updated,
+         * run the specs, then clear that option. This lets the
+         * WooCommerceAdminUpdatedRuleProcessor trigger on WCA update.
+         */
+        public static function run_on_woocommerce_admin_updated()
         {
         }
         /**
@@ -20393,6 +20879,33 @@ namespace Automattic\WooCommerce\Admin\RemoteInboxNotifications {
          * @param object $stored_state Stored state.
          *
          * @return bool The result of the operation.
+         */
+        public function process($rule, $stored_state)
+        {
+        }
+        /**
+         * Validates the rule.
+         *
+         * @param object $rule The rule to validate.
+         *
+         * @return bool Pass/fail.
+         */
+        public function validate($rule)
+        {
+        }
+    }
+    /**
+     * Rule processor for sending when WooCommerce Admin has been updated.
+     */
+    class WooCommerceAdminUpdatedRuleProcessor implements \Automattic\WooCommerce\Admin\RemoteInboxNotifications\RuleProcessorInterface
+    {
+        /**
+         * Process the rule.
+         *
+         * @param object $rule         The specific rule being processed by this rule processor.
+         * @param object $stored_state Stored state.
+         *
+         * @return bool Whether the rule passes or not.
          */
         public function process($rule, $stored_state)
         {
@@ -21147,6 +21660,17 @@ namespace Automattic\WooCommerce\Admin\Schedulers {
         {
         }
         /**
+         * Schedule an import if the "last active" meta value was changed.
+         * Function expects to be hooked into the `updated_user_meta` action.
+         *
+         * @param int    $meta_id ID of updated metadata entry.
+         * @param int    $user_id ID of the user being updated.
+         * @param string $meta_key Meta key being updated.
+         */
+        public static function schedule_import_via_last_active($meta_id, $user_id, $meta_key)
+        {
+        }
+        /**
          * Schedule an action to anonymize a single Order.
          *
          * @param WC_Order $order Order object.
@@ -21293,12 +21817,39 @@ namespace Automattic\WooCommerce\Admin {
         {
         }
     }
+    /**
+     * Class WCAdminHelper
+     */
+    class WCAdminHelper
+    {
+        /**
+         * WC Admin timestamp option name.
+         */
+        const WC_ADMIN_TIMESTAMP_OPTION = 'woocommerce_admin_install_timestamp';
+        /**
+         * Get the number of seconds that the store has been active.
+         *
+         * @return number Number of seconds.
+         */
+        public static function get_wcadmin_active_for_in_seconds()
+        {
+        }
+        /**
+         * Test how long WooCommerce Admin has been active.
+         *
+         * @param int $seconds Time in seconds to check.
+         * @return bool Whether or not WooCommerce admin has been active for $seconds.
+         */
+        public static function is_wc_admin_active_for($seconds)
+        {
+        }
+    }
 }
 namespace Automattic\WooCommerce\Blocks {
     /**
      * Assets class.
-     * Initializes block assets.
      *
+     * @deprecated 5.0.0 This class will be removed in a future release. This has been replaced by AssetsController.
      * @internal
      */
     class Assets
@@ -21307,8 +21858,7 @@ namespace Automattic\WooCommerce\Blocks {
          * Initialize class features on init.
          *
          * @since 2.5.0
-         * Moved most initialization to BootStrap and AssetDataRegistry
-         * classes as a part of ongoing refactor
+         * @deprecated 5.0.0
          */
         public static function init()
         {
@@ -21317,15 +21867,24 @@ namespace Automattic\WooCommerce\Blocks {
          * Register block scripts & styles.
          *
          * @since 2.5.0
-         * Moved data related enqueuing to new AssetDataRegistry class
-         * as part of ongoing refactoring.
+         * @deprecated 5.0.0
          */
         public static function register_assets()
         {
         }
         /**
+         * Register the vendors style file. We need to do it after the other files
+         * because we need to check if `wp-edit-post` has been enqueued.
+         *
+         * @deprecated 5.0.0
+         */
+        public static function enqueue_scripts()
+        {
+        }
+        /**
          * Add body classes.
          *
+         * @deprecated 5.0.0
          * @param array $classes Array of CSS classnames.
          * @return array Modified array of CSS classnames.
          */
@@ -21335,6 +21894,7 @@ namespace Automattic\WooCommerce\Blocks {
         /**
          * Add theme class to admin body.
          *
+         * @deprecated 5.0.0
          * @param array $classes String with the CSS classnames.
          * @return array Modified string of CSS classnames.
          */
@@ -21342,34 +21902,11 @@ namespace Automattic\WooCommerce\Blocks {
         {
         }
         /**
-         * Returns block-related data for enqueued wc-block-settings script.
+         * Adds a redirect field to the login form so blocks can redirect users after login.
          *
-         * This is used to map site settings & data into JS-accessible variables.
-         *
-         * @param array $settings The original settings array from the filter.
-         *
-         * @since 2.4.0
-         * @since 2.5.0 returned merged data along with incoming $settings
+         * @deprecated 5.0.0
          */
-        public static function get_wc_block_data($settings)
-        {
-        }
-        /**
-         * Format a page object into a standard array of data.
-         *
-         * @param WP_Post|int $page Page object or ID.
-         * @return array
-         */
-        protected static function format_page_resource($page)
-        {
-        }
-        /**
-         * Get the file modified time as a cache buster if we're in dev mode.
-         *
-         * @param string $file Local path to the file.
-         * @return string The cache buster value to use for the given file.
-         */
-        protected static function get_file_version($file)
+        public static function redirect_to_field()
         {
         }
         /**
@@ -21378,26 +21915,13 @@ namespace Automattic\WooCommerce\Blocks {
          * @since 2.3.0
          * @since 2.6.0 Changed $name to $script_name and added $handle argument.
          * @since 2.9.0 Made it so scripts are not loaded in admin pages.
+         * @deprecated 4.5.0 Block types register the scripts themselves.
          *
          * @param string $script_name  Name of the script used to identify the file inside build folder.
          * @param string $handle       Optional. Provided if the handle should be different than the script name. `wc-` prefix automatically added.
          * @param array  $dependencies Optional. An array of registered script handles this script depends on. Default empty array.
          */
         public static function register_block_script($script_name, $handle = '', $dependencies = [])
-        {
-        }
-        /**
-         * Registers a style according to `wp_register_style`.
-         *
-         * @since 2.0.0
-         *
-         * @param string $handle Name of the stylesheet. Should be unique.
-         * @param string $src    Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory.
-         * @param array  $deps   Optional. An array of registered stylesheet handles this stylesheet depends on. Default empty array.
-         * @param string $media  Optional. The media for which this stylesheet has been defined. Default 'all'. Accepts media types like
-         *                       'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and '(max-width: 640px)'.
-         */
-        protected static function register_style($handle, $src, $deps = [], $media = 'all')
         {
         }
     }
@@ -21412,6 +21936,12 @@ namespace Automattic\WooCommerce\Blocks\Assets {
      */
     class Api
     {
+        /**
+         * Stores inline scripts already enqueued.
+         *
+         * @var array
+         */
+        private $inline_scripts = [];
         /**
          * Reference to the Package instance
          *
@@ -21469,20 +21999,6 @@ namespace Automattic\WooCommerce\Blocks\Assets {
         {
         }
         /**
-         * Queues a block script in the frontend.
-         *
-         * @since 2.5.0
-         * @since 2.6.0 Changed $name to $script_name and added $handle argument.
-         * @since 2.9.0 Made it so scripts are not loaded in admin pages.
-         *
-         * @param string $script_name  Name of the script used to identify the file inside build folder.
-         * @param string $handle       Optional. Provided if the handle should be different than the script name. `wc-` prefix automatically added.
-         * @param array  $dependencies Optional. An array of registered script handles this script depends on. Default empty array.
-         */
-        public function register_block_script($script_name, $handle = '', $dependencies = [])
-        {
-        }
-        /**
          * Registers a style according to `wp_register_style`.
          *
          * @since 2.5.0
@@ -21507,6 +22023,15 @@ namespace Automattic\WooCommerce\Blocks\Assets {
          * @return  string             The generated path.
          */
         public function get_block_asset_build_path($filename, $type = 'js')
+        {
+        }
+        /**
+         * Adds an inline script, once.
+         *
+         * @param string $handle Script handle.
+         * @param string $script Script contents.
+         */
+        public function add_inline_script($handle, $script)
         {
         }
     }
@@ -21561,7 +22086,10 @@ namespace Automattic\WooCommerce\Blocks\Assets {
         {
         }
         /**
-         * Exposes core asset data
+         * Exposes core data via the wcSettings global. This data is shared throughout the client.
+         *
+         * Settings that are used by various components or multiple blocks should be added here. Note, that settings here are
+         * global so be sure not to add anything heavy if possible.
          *
          * @return array  An array containing core data.
          */
@@ -21569,13 +22097,45 @@ namespace Automattic\WooCommerce\Blocks\Assets {
         {
         }
         /**
+         * Get currency data to include in settings.
+         *
+         * @return array
+         */
+        protected function get_currency_data()
+        {
+        }
+        /**
+         * Get locale data to include in settings.
+         *
+         * @return array
+         */
+        protected function get_locale_data()
+        {
+        }
+        /**
+         * Get store pages to include in settings.
+         *
+         * @return array
+         */
+        protected function get_store_pages()
+        {
+        }
+        /**
+         * Format a page object into a standard array of data.
+         *
+         * @param WP_Post|int $page Page object or ID.
+         * @return array
+         */
+        protected function format_page_resource($page)
+        {
+        }
+        /**
          * Returns block-related data for enqueued wc-settings script.
          * Format order statuses by removing a leading 'wc-' if present.
          *
-         * @param array $statuses Order statuses.
          * @return array formatted statuses.
          */
-        protected function get_order_statuses($statuses)
+        protected function get_order_statuses()
         {
         }
         /**
@@ -21619,17 +22179,34 @@ namespace Automattic\WooCommerce\Blocks\Assets {
         /**
          * Interface for adding data to the registry.
          *
-         * @param string $key  The key used to reference the data being registered.
-         *                     You can only register data that is not already in the
-         *                     registry identified by the given key.
-         * @param mixed  $data If not a function, registered to the registry as is.
-         *                     If a function, then the callback is invoked right
-         *                     before output to the screen.
+         * You can only register data that is not already in the registry identified by the given key. If there is a
+         * duplicate found, unless $ignore_duplicates is true, an exception will be thrown.
          *
-         * @throws InvalidArgumentException  Only throws when site is in debug mode.
-         *                                   Always logs the error.
+         * @param string  $key               The key used to reference the data being registered.
+         * @param mixed   $data              If not a function, registered to the registry as is. If a function, then the
+         *                                   callback is invoked right before output to the screen.
+         * @param boolean $check_key_exists If set to true, duplicate data will be ignored if the key exists.
+         *                                  If false, duplicate data will cause an exception.
+         *
+         * @throws InvalidArgumentException  Only throws when site is in debug mode. Always logs the error.
          */
-        public function add($key, $data)
+        public function add($key, $data, $check_key_exists = false)
+        {
+        }
+        /**
+         * Hydrate from API.
+         *
+         * @param string $path REST API path to preload.
+         */
+        public function hydrate_api_request($path)
+        {
+        }
+        /**
+         * Adds a page permalink to the data registry.
+         *
+         * @param integer $page_id Page ID to add to the registry.
+         */
+        public function register_page_id($page_id)
         {
         }
         /**
@@ -21672,32 +22249,70 @@ namespace Automattic\WooCommerce\Blocks\Assets {
         {
         }
     }
+}
+namespace Automattic\WooCommerce\Blocks {
     /**
-     * Backwards Compatibility class for plugins using wcSettings in prior versions.
+     * AssetsController class.
      *
-     * Note: This will be removed at some point.
-     *
+     * @since 5.0.0
      * @internal
-     * @since 2.5.0
      */
-    class BackCompatAssetDataRegistry extends \Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry
+    final class AssetsController
     {
         /**
-         * Overrides parent method.
+         * Asset API interface for various asset registration.
          *
-         * @see AssetDataRegistry::enqueue_asset_data
+         * @var AssetApi
          */
-        public function enqueue_asset_data()
+        private $api;
+        /**
+         * Constructor.
+         *
+         * @param AssetApi $asset_api  Asset API interface for various asset registration.
+         */
+        public function __construct(\Automattic\WooCommerce\Blocks\Assets\Api $asset_api)
         {
         }
         /**
-         * Override parent method.
-         *
-         * @see AssetDataRegistry::get_core_data
-         *
-         * @return array  An array of data to output for enqueued script.
+         * Initialize class features.
          */
-        protected function get_core_data()
+        protected function init()
+        {
+        }
+        /**
+         * Register block scripts & styles.
+         */
+        public function register_assets()
+        {
+        }
+        /**
+         * Add body classes to the frontend and within admin.
+         *
+         * @param string|array $classes Array or string of CSS classnames.
+         * @return string|array Modified classnames.
+         */
+        public function add_theme_body_class($classes)
+        {
+        }
+        /**
+         * Get the file modified time as a cache buster if we're in dev mode.
+         *
+         * @param string $file Local path to the file.
+         * @return string The cache buster value to use for the given file.
+         */
+        protected function get_file_version($file)
+        {
+        }
+        /**
+         * Registers a style according to `wp_register_style`.
+         *
+         * @param string $handle Name of the stylesheet. Should be unique.
+         * @param string $src    Full URL of the stylesheet, or path of the stylesheet relative to the WordPress root directory.
+         * @param array  $deps   Optional. An array of registered stylesheet handles this stylesheet depends on. Default empty array.
+         * @param string $media  Optional. The media for which this stylesheet has been defined. Default 'all'. Accepts media types like
+         *                       'all', 'print' and 'screen', or media queries like '(orientation: portrait)' and '(max-width: 640px)'.
+         */
+        protected function register_style($handle, $src, $deps = [], $media = 'all')
         {
         }
     }
@@ -21715,7 +22330,7 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $namespace = 'woocommerce';
         /**
-         * Block namespace.
+         * Block name within this namespace.
          *
          * @var string
          */
@@ -21727,35 +22342,43 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $enqueued_assets = false;
         /**
-         * Constructor
+         * Instance of the asset API.
          *
-         * @param string $block_name Optional set block name during construct.
+         * @var AssetApi
          */
-        public function __construct($block_name = '')
+        protected $asset_api;
+        /**
+         * Instance of the asset data registry.
+         *
+         * @var AssetDataRegistry
+         */
+        protected $asset_data_registry;
+        /**
+         * Instance of the integration registry.
+         *
+         * @var IntegrationRegistry
+         */
+        protected $integration_registry;
+        /**
+         * Constructor.
+         *
+         * @param AssetApi            $asset_api Instance of the asset API.
+         * @param AssetDataRegistry   $asset_data_registry Instance of the asset data registry.
+         * @param IntegrationRegistry $integration_registry Instance of the integration registry.
+         * @param string              $block_name Optionally set block name during construct.
+         */
+        public function __construct(\Automattic\WooCommerce\Blocks\Assets\Api $asset_api, \Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry $asset_data_registry, \Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry $integration_registry, $block_name = '')
         {
         }
         /**
-         * Registers the block type with WordPress.
-         */
-        public function register_block_type()
-        {
-        }
-        /**
-         * Append frontend scripts when rendering the block.
+         * The default render_callback for all blocks. This will ensure assets are enqueued just in time, then render
+         * the block (if applicable).
          *
-         * @param array|\WP_Block $attributes Block attributes, or an instance of a WP_Block. Defaults to an empty array.
-         * @param string          $content    Block content. Default empty string.
+         * @param array|WP_Block $attributes Block attributes, or an instance of a WP_Block. Defaults to an empty array.
+         * @param string         $content    Block content. Default empty string.
          * @return string Rendered block type output.
          */
-        public function render($attributes = [], $content = '')
-        {
-        }
-        /**
-         * Enqueue assets used for rendering the block.
-         *
-         * @param array $attributes  Any attributes that currently are available from the block.
-         */
-        public function enqueue_assets(array $attributes = [])
+        public function render_callback($attributes = [], $content = '')
         {
         }
         /**
@@ -21764,6 +22387,133 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          * This is needed if a block is not yet within the post content--`render` and `enqueue_assets` may not have ran.
          */
         public function enqueue_editor_assets()
+        {
+        }
+        /**
+         * Initialize this block type.
+         *
+         * - Hook into WP lifecycle.
+         * - Register the block with WordPress.
+         */
+        protected function initialize()
+        {
+        }
+        /**
+         * Register script and style assets for the block type before it is registered.
+         *
+         * This registers the scripts; it does not enqueue them.
+         */
+        protected function register_block_type_assets()
+        {
+        }
+        /**
+         * Registers the block type with WordPress.
+         */
+        protected function register_block_type()
+        {
+        }
+        /**
+         * Get the block type.
+         *
+         * @return string
+         */
+        protected function get_block_type()
+        {
+        }
+        /**
+         * Get the render callback for this block type.
+         *
+         * Dynamic blocks should return a callback, for example, `return [ $this, 'render' ];`
+         *
+         * @see $this->register_block_type()
+         * @return callable|null;
+         */
+        protected function get_block_type_render_callback()
+        {
+        }
+        /**
+         * Get the editor script data for this block type.
+         *
+         * @see $this->register_block_type()
+         * @param string $key Data to get, or default to everything.
+         * @return array|string
+         */
+        protected function get_block_type_editor_script($key = null)
+        {
+        }
+        /**
+         * Get the editor style handle for this block type.
+         *
+         * @see $this->register_block_type()
+         * @return string|null
+         */
+        protected function get_block_type_editor_style()
+        {
+        }
+        /**
+         * Get the frontend script handle for this block type.
+         *
+         * @see $this->register_block_type()
+         * @param string $key Data to get, or default to everything.
+         * @return array|string
+         */
+        protected function get_block_type_script($key = null)
+        {
+        }
+        /**
+         * Get the frontend style handle for this block type.
+         *
+         * @see $this->register_block_type()
+         * @return string|null
+         */
+        protected function get_block_type_style()
+        {
+        }
+        /**
+         * Get the supports array for this block type.
+         *
+         * @see $this->register_block_type()
+         * @return string;
+         */
+        protected function get_block_type_supports()
+        {
+        }
+        /**
+         * Get block attributes.
+         *
+         * @return array|null;
+         */
+        protected function get_block_type_attributes()
+        {
+        }
+        /**
+         * Parses block attributes from the render_callback.
+         *
+         * @param array|WP_Block $attributes Block attributes, or an instance of a WP_Block. Defaults to an empty array.
+         * @return array
+         */
+        protected function parse_render_callback_attributes($attributes)
+        {
+        }
+        /**
+         * Render the block. Extended by children.
+         *
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
+         * @return string Rendered block type output.
+         */
+        protected function render($attributes, $content)
+        {
+        }
+        /**
+         * Enqueue frontend assets for this block, just in time for rendering.
+         *
+         * @internal This prevents the block script being enqueued on all pages. It is only enqueued as needed. Note that
+         * we intentionally do not pass 'script' to register_block_type.
+         *
+         * @param array $attributes  Any attributes that currently are available from the block.
+         */
+        protected function enqueue_assets(array $attributes)
         {
         }
         /**
@@ -21786,7 +22536,7 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         {
         }
         /**
-         * Extra data passed through from server to client for block.
+         * Data passed through from server to client for block.
          *
          * @param array $attributes  Any attributes that currently are available from the block.
          *                           Note, this will be empty in the editor context when the block is
@@ -21796,9 +22546,9 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         {
         }
         /**
-         * Register/enqueue scripts used for this block.
+         * Register/enqueue scripts used for this block on the frontend, during render.
          *
-         * @param array $attributes  Any attributes that currently are available from the block.
+         * @param array $attributes Any attributes that currently are available from the block.
          */
         protected function enqueue_scripts(array $attributes = [])
         {
@@ -21815,40 +22565,23 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
     /**
      * AbstractDynamicBlock class.
      */
-    abstract class AbstractDynamicBlock
+    abstract class AbstractDynamicBlock extends \Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock
     {
         /**
-         * Block namespace.
+         * Get the frontend script handle for this block type.
          *
-         * @var string
+         * @param string $key Data to get, or default to everything.
+         * @return null
          */
-        protected $namespace = 'woocommerce';
-        /**
-         * Block namespace.
-         *
-         * @var string
-         */
-        protected $block_name = '';
-        /**
-         * Registers the block type with WordPress.
-         */
-        public function register_block_type()
+        protected function get_block_type_script($key = null)
         {
         }
-        /**
-         * Include and render a dynamic block.
-         *
-         * @param array  $attributes Block attributes. Default empty array.
-         * @param string $content    Block content. Default empty string.
-         * @return string Rendered block type output.
-         */
-        public abstract function render($attributes = array(), $content = '');
         /**
          * Get block attributes.
          *
          * @return array
          */
-        protected function get_attributes()
+        protected function get_block_type_attributes()
         {
         }
         /**
@@ -21923,7 +22656,7 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          *
          * @return array List of block attributes with type and defaults.
          */
-        protected function get_attributes()
+        protected function get_block_type_attributes()
         {
         }
         /**
@@ -21933,7 +22666,7 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          * @param string $content    Block content. Default empty string.
          * @return string Rendered block type output.
          */
-        public function render($attributes = array(), $content = '')
+        protected function render($attributes = array(), $content = '')
         {
         }
         /**
@@ -22026,10 +22759,10 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         /**
          * Render a single products.
          *
-         * @param int $id Product ID.
+         * @param \WC_Product $product Product object.
          * @return string Rendered product output.
          */
-        public function render_product($id)
+        protected function render_product($product)
         {
         }
         /**
@@ -22095,6 +22828,16 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         protected function get_add_to_cart($product)
         {
         }
+        /**
+         * Extra data passed through from server to client for block.
+         *
+         * @param array $attributes  Any attributes that currently are available from the block.
+         *                           Note, this will be empty in the editor context when the block is
+         *                           not in the post content on editor load.
+         */
+        protected function enqueue_data(array $attributes = [])
+        {
+        }
     }
     /**
      * ActiveFilters class.
@@ -22107,25 +22850,11 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          * @var string
          */
         protected $block_name = 'active-filters';
-        /**
-         * Registers the block type with WordPress.
-         */
-        public function register_block_type()
-        {
-        }
-        /**
-         * Register/enqueue scripts used for this block.
-         *
-         * @param array $attributes  Any attributes that currently are available from the block.
-         */
-        protected function enqueue_scripts(array $attributes = [])
-        {
-        }
     }
     /**
      * AllProducts class.
      */
-    class AllProducts extends \Automattic\WooCommerce\Blocks\BlockTypes\AbstractDynamicBlock
+    class AllProducts extends \Automattic\WooCommerce\Blocks\BlockTypes\AbstractBlock
     {
         /**
          * Block name.
@@ -22134,19 +22863,13 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $block_name = 'all-products';
         /**
-         * Registers the block type with WordPress.
-         */
-        public function register_block_type()
-        {
-        }
-        /**
-         * Append frontend scripts when rendering the Product Categories List block.
+         * Extra data passed through from server to client for block.
          *
-         * @param array  $attributes Block attributes. Default empty array.
-         * @param string $content    Block content. Default empty string.
-         * @return string Rendered block type output.
+         * @param array $attributes  Any attributes that currently are available from the block.
+         *                           Note, this will be empty in the editor context when the block is
+         *                           not in the post content on editor load.
          */
-        public function render($attributes = array(), $content = '')
+        protected function enqueue_data(array $attributes = [])
         {
         }
     }
@@ -22162,17 +22885,13 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $block_name = 'all-reviews';
         /**
-         * Registers the block type with WordPress.
-         */
-        public function register_block_type()
-        {
-        }
-        /**
-         * Register/enqueue scripts used for this block.
+         * Get the frontend script handle for this block type.
          *
-         * @param array $attributes  Any attributes that currently are available from the block.
+         * @see $this->register_block_type()
+         * @param string $key Data to get, or default to everything.
+         * @return array|string
          */
-        protected function enqueue_scripts(array $attributes = [])
+        protected function get_block_type_script($key = null)
         {
         }
     }
@@ -22186,17 +22905,45 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         /**
          * Inject attributes and block name.
          *
-         * @param array|\WP_Block $attributes Block attributes, or an instance of a WP_Block. Defaults to an empty array.
-         * @param string          $content    Block content. Default empty string.
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
          * @return string Rendered block type output.
          */
-        public function render($attributes = [], $content = '')
+        protected function render($attributes, $content)
         {
         }
         /**
-         * Registers the block type with WordPress.
+         * Get the editor script data for this block type.
+         *
+         * @param string $key Data to get, or default to everything.
+         * @return null
          */
-        public function register_block_type()
+        protected function get_block_type_editor_script($key = null)
+        {
+        }
+        /**
+         * Get the editor style handle for this block type.
+         *
+         * @return null
+         */
+        protected function get_block_type_editor_style()
+        {
+        }
+        /**
+         * Get the frontend script handle for this block type.
+         *
+         * @param string $key Data to get, or default to everything.
+         * @return null
+         */
+        protected function get_block_type_script($key = null)
+        {
+        }
+        /**
+         * Get the frontend style handle for this block type.
+         *
+         * @return null
+         */
+        protected function get_block_type_style()
         {
         }
         /**
@@ -22221,17 +22968,13 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $block_name = 'attribute-filter';
         /**
-         * Registers the block type with WordPress.
-         */
-        public function register_block_type()
-        {
-        }
-        /**
-         * Register/enqueue scripts used for this block.
+         * Extra data passed through from server to client for block.
          *
          * @param array $attributes  Any attributes that currently are available from the block.
+         *                           Note, this will be empty in the editor context when the block is
+         *                           not in the post content on editor load.
          */
-        protected function enqueue_scripts(array $attributes = [])
+        protected function enqueue_data(array $attributes = [])
         {
         }
     }
@@ -22249,19 +22992,40 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $block_name = 'cart';
         /**
-         * Registers the block type with WordPress.
+         * Get the editor script handle for this block type.
+         *
+         * @param string $key Data to get, or default to everything.
+         * @return array|string;
          */
-        public function register_block_type()
+        protected function get_block_type_editor_script($key = null)
+        {
+        }
+        /**
+         * Get the frontend script handle for this block type.
+         *
+         * @see $this->register_block_type()
+         * @param string $key Data to get, or default to everything.
+         * @return array|string
+         */
+        protected function get_block_type_script($key = null)
+        {
+        }
+        /**
+         * Enqueue frontend assets for this block, just in time for rendering.
+         *
+         * @param array $attributes  Any attributes that currently are available from the block.
+         */
+        protected function enqueue_assets(array $attributes)
         {
         }
         /**
          * Append frontend scripts when rendering the Cart block.
          *
-         * @param array|\WP_Block $attributes Block attributes, or an instance of a WP_Block. Defaults to an empty array.
-         * @param string          $content    Block content. Default empty string.
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
          * @return string Rendered block type output.
          */
-        public function render($attributes = array(), $content = '')
+        protected function render($attributes, $content)
         {
         }
         /**
@@ -22284,21 +23048,9 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         {
         }
         /**
-         * Register/enqueue scripts used for this block.
-         *
-         * @param array $attributes  Any attributes that currently are available from the block.
-         *                           Note, this will be empty in the editor context when the block is
-         *                           not in the post content on editor load.
-         */
-        protected function enqueue_scripts(array $attributes = [])
-        {
-        }
-        /**
          * Hydrate the cart block with data from the API.
-         *
-         * @param AssetDataRegistry $data_registry Data registry instance.
          */
-        protected function hydrate_from_api(\Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry $data_registry)
+        protected function hydrate_from_api()
         {
         }
         /**
@@ -22322,19 +23074,40 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $block_name = 'checkout';
         /**
-         * Registers the block type with WordPress.
+         * Get the editor script handle for this block type.
+         *
+         * @param string $key Data to get, or default to everything.
+         * @return array|string;
          */
-        public function register_block_type()
+        protected function get_block_type_editor_script($key = null)
+        {
+        }
+        /**
+         * Get the frontend script handle for this block type.
+         *
+         * @see $this->register_block_type()
+         * @param string $key Data to get, or default to everything.
+         * @return array|string
+         */
+        protected function get_block_type_script($key = null)
+        {
+        }
+        /**
+         * Enqueue frontend assets for this block, just in time for rendering.
+         *
+         * @param array $attributes  Any attributes that currently are available from the block.
+         */
+        protected function enqueue_assets(array $attributes)
         {
         }
         /**
          * Append frontend scripts when rendering the block.
          *
-         * @param array|\WP_Block $attributes Block attributes, or an instance of a WP_Block. Defaults to an empty array.
-         * @param string          $content    Block content. Default empty string.
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
          * @return string Rendered block type output.
          */
-        public function render($attributes = array(), $content = '')
+        protected function render($attributes, $content)
         {
         }
         /**
@@ -22365,29 +23138,15 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         {
         }
         /**
-         * Register/enqueue scripts used for this block.
-         *
-         * @param array $attributes  Any attributes that currently are available from the block.
-         *                           Note, this will be empty in the editor context when the block is
-         *                           not in the post content on editor load.
-         */
-        protected function enqueue_scripts(array $attributes = [])
-        {
-        }
-        /**
          * Get customer payment methods for use in checkout.
-         *
-         * @param AssetDataRegistry $data_registry Data registry instance.
          */
-        protected function hydrate_customer_payment_methods(\Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry $data_registry)
+        protected function hydrate_customer_payment_methods()
         {
         }
         /**
          * Hydrate the checkout block with data from the API.
-         *
-         * @param AssetDataRegistry $data_registry Data registry instance.
          */
-        protected function hydrate_from_api(\Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry $data_registry)
+        protected function hydrate_from_api()
         {
         }
         /**
@@ -22429,11 +23188,11 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         /**
          * Render the Featured Category block.
          *
-         * @param array  $attributes Block attributes. Default empty array.
-         * @param string $content    Block content. Default empty string.
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
          * @return string Rendered block type output.
          */
-        public function render($attributes = array(), $content = '')
+        protected function render($attributes, $content)
         {
         }
         /**
@@ -22465,6 +23224,16 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         public function get_image($category, $size = 'full')
         {
         }
+        /**
+         * Extra data passed through from server to client for block.
+         *
+         * @param array $attributes  Any attributes that currently are available from the block.
+         *                           Note, this will be empty in the editor context when the block is
+         *                           not in the post content on editor load.
+         */
+        protected function enqueue_data(array $attributes = [])
+        {
+        }
     }
     /**
      * FeaturedProduct class.
@@ -22486,11 +23255,11 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
         /**
          * Render the Featured Product block.
          *
-         * @param array  $attributes Block attributes. Default empty array.
-         * @param string $content    Block content. Default empty string.
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
          * @return string Rendered block type output.
          */
-        public function render($attributes = array(), $content = '')
+        protected function render($attributes, $content)
         {
         }
         /**
@@ -22520,6 +23289,16 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          * @return string
          */
         public function get_image($product, $size = 'full')
+        {
+        }
+        /**
+         * Extra data passed through from server to client for block.
+         *
+         * @param array $attributes  Any attributes that currently are available from the block.
+         *                           Note, this will be empty in the editor context when the block is
+         *                           not in the post content on editor load.
+         */
+        protected function enqueue_data(array $attributes = [])
         {
         }
     }
@@ -22555,7 +23334,7 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          *
          * @return array
          */
-        protected function get_attributes()
+        protected function get_block_type_attributes()
         {
         }
     }
@@ -22570,20 +23349,6 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          * @var string
          */
         protected $block_name = 'price-filter';
-        /**
-         * Registers the block type with WordPress.
-         */
-        public function register_block_type()
-        {
-        }
-        /**
-         * Register/enqueue scripts used for this block.
-         *
-         * @param array $attributes  Any attributes that currently are available from the block.
-         */
-        protected function enqueue_scripts(array $attributes = [])
-        {
-        }
     }
     /**
      * ProductBestSellers class.
@@ -22627,17 +23392,17 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          *
          * @return array
          */
-        protected function get_attributes()
+        protected function get_block_type_attributes()
         {
         }
         /**
          * Render the Product Categories List block.
          *
-         * @param array  $attributes Block attributes. Default empty array.
-         * @param string $content    Block content. Default empty string.
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
          * @return string Rendered block type output.
          */
-        public function render($attributes = array(), $content = '')
+        protected function render($attributes, $content)
         {
         }
         /**
@@ -22770,7 +23535,7 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          *
          * @return array
          */
-        protected function get_attributes()
+        protected function get_block_type_attributes()
         {
         }
     }
@@ -22818,7 +23583,7 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          *
          * @return array
          */
-        protected function get_attributes()
+        protected function get_block_type_attributes()
         {
         }
     }
@@ -22833,6 +23598,25 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          * @var string
          */
         protected $block_name = 'product-search';
+        /**
+         * Get the frontend script handle for this block type.
+         *
+         * @param string $key Data to get, or default to everything.
+         * @return null
+         */
+        protected function get_block_type_script($key = null)
+        {
+        }
+        /**
+         * Render the block.
+         *
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
+         * @return string Rendered block type output.
+         */
+        protected function render($attributes, $content)
+        {
+        }
     }
     /**
      * ProductTag class.
@@ -22858,7 +23642,17 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          *
          * @return array
          */
-        protected function get_attributes()
+        protected function get_block_type_attributes()
+        {
+        }
+        /**
+         * Extra data passed through from server to client for block.
+         *
+         * @param array $attributes  Any attributes that currently are available from the block.
+         *                           Note, this will be empty in the editor context when the block is
+         *                           not in the post content on editor load.
+         */
+        protected function enqueue_data(array $attributes = [])
         {
         }
     }
@@ -22906,7 +23700,7 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          *
          * @return array
          */
-        protected function get_attributes()
+        protected function get_block_type_attributes()
         {
         }
     }
@@ -22922,17 +23716,23 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $block_name = 'reviews-by-category';
         /**
-         * Registers the block type with WordPress.
+         * Get the frontend script handle for this block type.
+         *
+         * @see $this->register_block_type()
+         * @param string $key Data to get, or default to everything.
+         * @return array|string
          */
-        public function register_block_type()
+        protected function get_block_type_script($key = null)
         {
         }
         /**
-         * Register/enqueue scripts used for this block.
+         * Extra data passed through from server to client for block.
          *
          * @param array $attributes  Any attributes that currently are available from the block.
+         *                           Note, this will be empty in the editor context when the block is
+         *                           not in the post content on editor load.
          */
-        protected function enqueue_scripts(array $attributes = [])
+        protected function enqueue_data(array $attributes = [])
         {
         }
     }
@@ -22948,17 +23748,23 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $block_name = 'reviews-by-product';
         /**
-         * Registers the block type with WordPress.
+         * Get the frontend script handle for this block type.
+         *
+         * @see $this->register_block_type()
+         * @param string $key Data to get, or default to everything.
+         * @return array|string
          */
-        public function register_block_type()
+        protected function get_block_type_script($key = null)
         {
         }
         /**
-         * Register/enqueue scripts used for this block.
+         * Extra data passed through from server to client for block.
          *
          * @param array $attributes  Any attributes that currently are available from the block.
+         *                           Note, this will be empty in the editor context when the block is
+         *                           not in the post content on editor load.
          */
-        protected function enqueue_scripts(array $attributes = [])
+        protected function enqueue_data(array $attributes = [])
         {
         }
     }
@@ -22974,29 +23780,88 @@ namespace Automattic\WooCommerce\Blocks\BlockTypes {
          */
         protected $block_name = 'single-product';
         /**
-         * Registers the block type with WordPress.
-         */
-        public function register_block_type()
-        {
-        }
-        /**
-         * Register/enqueue scripts used for this block.
+         * Get the editor script handle for this block type.
          *
-         * @param array $attributes  Any attributes that currently are available from the block.
-         *                           Note, this will be empty in the editor context when the block is
-         *                           not in the post content on editor load.
+         * @param string $key Data to get, or default to everything.
+         * @return array|string;
          */
-        protected function enqueue_scripts(array $attributes = [])
+        protected function get_block_type_editor_script($key = null)
         {
         }
         /**
          * Render the block on the frontend.
          *
-         * @param array  $attributes Block attributes. Default empty array.
-         * @param string $content    Block content. Default empty string.
+         * @param array  $attributes Block attributes.
+         * @param string $content    Block content.
          * @return string Rendered block type output.
          */
-        public function render($attributes = array(), $content = '')
+        protected function render($attributes, $content)
+        {
+        }
+    }
+}
+namespace Automattic\WooCommerce\Blocks {
+    /**
+     * BlockTypesController class.
+     *
+     * @since 5.0.0
+     * @internal
+     */
+    final class BlockTypesController
+    {
+        /**
+         * Instance of the asset API.
+         *
+         * @var AssetApi
+         */
+        protected $asset_api;
+        /**
+         * Instance of the asset data registry.
+         *
+         * @var AssetDataRegistry
+         */
+        protected $asset_data_registry;
+        /**
+         * Constructor.
+         *
+         * @param AssetApi          $asset_api Instance of the asset API.
+         * @param AssetDataRegistry $asset_data_registry Instance of the asset data registry.
+         */
+        public function __construct(\Automattic\WooCommerce\Blocks\Assets\Api $asset_api, \Automattic\WooCommerce\Blocks\Assets\AssetDataRegistry $asset_data_registry)
+        {
+        }
+        /**
+         * Initialize class features.
+         */
+        protected function init()
+        {
+        }
+        /**
+         * Register blocks, hooking up assets and render functions as needed.
+         */
+        public function register_blocks()
+        {
+        }
+        /**
+         * Adds a redirect field to the login form so blocks can redirect users after login.
+         */
+        public function redirect_to_field()
+        {
+        }
+        /**
+         * Get list of block types.
+         *
+         * @return array
+         */
+        protected function get_block_types()
+        {
+        }
+        /**
+         * Get atomic blocks types.
+         *
+         * @return array
+         */
+        protected function get_atomic_blocks()
         {
         }
     }
@@ -23572,6 +24437,7 @@ namespace Automattic\WooCommerce\Blocks\Domain\Services {
          *     @type string   $namespace Plugin namespace.
          *     @type callable $schema_callback Callback executed to add schema data.
          *     @type callable $data_callback Callback executed to add endpoint data.
+         *     @type string   $data_type The type of data, object or array.
          * }
          *
          * @throws Exception On failure to register.
@@ -23589,6 +24455,17 @@ namespace Automattic\WooCommerce\Blocks\Domain\Services {
          * @throws Exception If a registered callback throws an error, or silently logs it.
          */
         public function get_endpoint_data($endpoint, array $passed_args = [])
+        {
+        }
+        /**
+         * Returns the registered endpoint schema
+         *
+         * @param string $endpoint    A valid identifier.
+         * @param array  $passed_args Passed arguments from the Schema class.
+         * @return array Returns an array with registered schema data.
+         * @throws Exception If a registered callback throws an error, or silently logs it.
+         */
+        public function get_endpoint_schema($endpoint, array $passed_args = [])
         {
         }
         /**
@@ -23617,17 +24494,6 @@ namespace Automattic\WooCommerce\Blocks\Domain\Services {
         {
         }
         /**
-         * Returns the registered endpoint schema
-         *
-         * @param string $endpoint    A valid identifier.
-         * @param array  $passed_args Passed arguments from the Schema class.
-         * @return array Returns an array with registered schema data.
-         * @throws Exception If a registered callback throws an error, or silently logs it.
-         */
-        public function get_endpoint_schema($endpoint, array $passed_args = [])
-        {
-        }
-        /**
          * Throws error and/or silently logs it.
          *
          * @param string|Throwable $exception_or_error Error message or Exception.
@@ -23641,10 +24507,11 @@ namespace Automattic\WooCommerce\Blocks\Domain\Services {
          *
          * @param string $namespace Error message or Exception.
          * @param array  $schema An error to throw if we have debug enabled and user is admin.
+         * @param string $data_type How should data be shaped.
          *
          * @return array Formatted schema.
          */
-        private function format_extensions_properties($namespace, $schema)
+        private function format_extensions_properties($namespace, $schema, $data_type)
         {
         }
     }
@@ -23751,6 +24618,63 @@ namespace Automattic\WooCommerce\Blocks\Domain\Services {
         {
         }
     }
+    /**
+     * Service class to integrate Blocks with the Google Analytics extension,
+     */
+    class GoogleAnalytics
+    {
+        /**
+         * Instance of the asset API.
+         *
+         * @var AssetApi
+         */
+        protected $asset_api;
+        /**
+         * Constructor.
+         *
+         * @param AssetApi $asset_api Instance of the asset API.
+         */
+        public function __construct(\Automattic\WooCommerce\Blocks\Assets\Api $asset_api)
+        {
+        }
+        /**
+         * Hook into WP.
+         */
+        protected function init()
+        {
+        }
+        /**
+         * Register scripts.
+         */
+        public function register_assets()
+        {
+        }
+        /**
+         * Enqueue the Google Tag Manager script if prerequisites are met.
+         */
+        public function enqueue_scripts()
+        {
+        }
+        /**
+         * Get settings from the GA integration extension.
+         *
+         * @return array
+         */
+        private function get_google_analytics_settings()
+        {
+        }
+        /**
+         * Add async to script tags with defined handles.
+         *
+         * @param string $tag HTML for the script tag.
+         * @param string $handle Handle of script.
+         * @param string $src Src of script.
+         * @return string
+         */
+        public function async_script_loader_tags($tag, $handle, $src)
+        {
+        }
+    }
 }
 namespace Automattic\WooCommerce\Blocks {
     /**
@@ -23806,36 +24730,173 @@ namespace Automattic\WooCommerce\Blocks {
         {
         }
     }
+}
+namespace Automattic\WooCommerce\Blocks\Integrations {
+    /**
+     * Integration.Interface
+     *
+     * Integrations must use this interface when registering themselves with blocks,
+     */
+    interface IntegrationInterface
+    {
+        /**
+         * The name of the integration.
+         *
+         * @return string
+         */
+        public function get_name();
+        /**
+         * When called invokes any initialization/setup for the integration.
+         */
+        public function initialize();
+        /**
+         * Returns an array of script handles to enqueue in the frontend context.
+         *
+         * @return string[]
+         */
+        public function get_script_handles();
+        /**
+         * Returns an array of script handles to enqueue in the editor context.
+         *
+         * @return string[]
+         */
+        public function get_editor_script_handles();
+        /**
+         * An array of key, value pairs of data made available to the block on the client side.
+         *
+         * @return array
+         */
+        public function get_script_data();
+    }
+    /**
+     * Class used for tracking registered integrations with various Block types.
+     */
+    class IntegrationRegistry
+    {
+        /**
+         * Integration identifier is used to construct hook names and is given when the integration registry is initialized.
+         *
+         * @var string
+         */
+        protected $registry_identifier = '';
+        /**
+         * Registered integrations, as `$name => $instance` pairs.
+         *
+         * @var IntegrationInterface[]
+         */
+        protected $registered_integrations = [];
+        /**
+         * Initializes all registered integrations.
+         *
+         * Integration identifier is used to construct hook names and is given when the integration registry is initialized.
+         *
+         * @param string $registry_identifier Identifier for this registry.
+         */
+        public function initialize($registry_identifier = '')
+        {
+        }
+        /**
+         * Registers an integration.
+         *
+         * @param IntegrationInterface $integration An instance of IntegrationInterface.
+         *
+         * @return boolean True means registered successfully.
+         */
+        public function register(\Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface $integration)
+        {
+        }
+        /**
+         * Checks if an integration is already registered.
+         *
+         * @param string $name Integration name.
+         * @return bool True if the integration is registered, false otherwise.
+         */
+        public function is_registered($name)
+        {
+        }
+        /**
+         * Un-register an integration.
+         *
+         * @param string|IntegrationInterface $name Integration name, or alternatively a IntegrationInterface instance.
+         * @return boolean|IntegrationInterface Returns the unregistered integration instance if unregistered successfully.
+         */
+        public function unregister($name)
+        {
+        }
+        /**
+         * Retrieves a registered Integration by name.
+         *
+         * @param string $name Integration name.
+         * @return IntegrationInterface|null The registered integration, or null if it is not registered.
+         */
+        public function get_registered($name)
+        {
+        }
+        /**
+         * Retrieves all registered integrations.
+         *
+         * @return IntegrationInterface[]
+         */
+        public function get_all_registered()
+        {
+        }
+        /**
+         * Gets an array of all registered integration's script handles for the editor.
+         *
+         * @return string[]
+         */
+        public function get_all_registered_editor_script_handles()
+        {
+        }
+        /**
+         * Gets an array of all registered integration's script handles.
+         *
+         * @return string[]
+         */
+        public function get_all_registered_script_handles()
+        {
+        }
+        /**
+         * Gets an array of all registered integration's script data.
+         *
+         * @return array
+         */
+        public function get_all_registered_script_data()
+        {
+        }
+    }
+}
+namespace Automattic\WooCommerce\Blocks {
     /**
      * Library class.
-     * Initializes blocks in WordPress.
      *
+     * @deprecated 5.0.0 This class will be removed in a future release. This has been replaced by BlockTypesController.
      * @internal
      */
     class Library
     {
         /**
          * Initialize block library features.
+         *
+         * @deprecated 5.0.0
          */
         public static function init()
         {
         }
         /**
          * Register custom tables within $wpdb object.
+         *
+         * @deprecated 5.0.0
          */
         public static function define_tables()
         {
         }
         /**
          * Register blocks, hooking up assets and render functions as needed.
+         *
+         * @deprecated 5.0.0
          */
         public static function register_blocks()
-        {
-        }
-        /**
-         * Register atomic blocks on the PHP side.
-         */
-        protected static function register_atomic_blocks()
         {
         }
     }
@@ -24003,26 +25064,24 @@ namespace Automattic\WooCommerce\Blocks\Payments {
         public function process_legacy_payment(\Automattic\WooCommerce\Blocks\Payments\PaymentContext $context, \Automattic\WooCommerce\Blocks\Payments\PaymentResult &$result)
         {
         }
-    }
-    interface PaymentMethodTypeInterface
-    {
         /**
-         * The name of the payment method
-         *
-         * @return string
+         * Verify all dependencies of registered payment methods have been registered.
+         * If not, remove that payment method script from the list of dependencies
+         * of Cart and Checkout block scripts so it doesn't break the blocks and show
+         * an error in the admin.
          */
-        public function get_name();
+        public function verify_payment_methods_dependencies()
+        {
+        }
+    }
+    interface PaymentMethodTypeInterface extends \Automattic\WooCommerce\Blocks\Integrations\IntegrationInterface
+    {
         /**
          * Returns if this payment method should be active. If false, the scripts will not be enqueued.
          *
          * @return boolean
          */
         public function is_active();
-        /**
-         * When called invokes any initialization/setup for the payment method type
-         * instance.
-         */
-        public function initialize();
         /**
          * Returns an array of script handles to enqueue for this payment method in
          * the frontend context
@@ -24129,6 +25188,36 @@ namespace Automattic\WooCommerce\Blocks\Payments\Integrations {
          * @return array
          */
         public function get_payment_method_data()
+        {
+        }
+        /**
+         * Returns an array of script handles to enqueue in the frontend context.
+         *
+         * Alias of get_payment_method_script_handles. Defined by IntegrationInterface.
+         *
+         * @return string[]
+         */
+        public function get_script_handles()
+        {
+        }
+        /**
+         * Returns an array of script handles to enqueue in the admin context.
+         *
+         * Alias of get_payment_method_script_handles_for_admin. Defined by IntegrationInterface.
+         *
+         * @return string[]
+         */
+        public function get_editor_script_handles()
+        {
+        }
+        /**
+         * An array of key, value pairs of data made available to the block on the client side.
+         *
+         * Alias of get_payment_method_data. Defined by IntegrationInterface.
+         *
+         * @return array
+         */
+        public function get_script_data()
         {
         }
     }
@@ -24665,65 +25754,14 @@ namespace Automattic\WooCommerce\Blocks\Payments {
      *
      * @since 2.6.0
      */
-    final class PaymentMethodRegistry
+    final class PaymentMethodRegistry extends \Automattic\WooCommerce\Blocks\Integrations\IntegrationRegistry
     {
         /**
-         * Registered payment methods, as `$name => $instance` pairs.
+         * Integration identifier is used to construct hook names and is given when the integration registry is initialized.
          *
-         * @var PaymentMethodTypeInterface[]
+         * @var string
          */
-        private $registered_payment_methods = [];
-        /**
-         * Registers a payment method.
-         *
-         * @param PaymentMethodTypeInterface $payment_method_type An instance of PaymentMethodTypeInterface.
-         *
-         * @return boolean True means registered successfully.
-         */
-        public function register(\Automattic\WooCommerce\Blocks\Payments\PaymentMethodTypeInterface $payment_method_type)
-        {
-        }
-        /**
-         * Initializes all payment method types.
-         */
-        public function initialize()
-        {
-        }
-        /**
-         * Un-register a payment method.
-         *
-         * @param string|PaymentMethodTypeInterface $name Payment method name, or alternatively a PaymentMethodTypeInterface instance.
-         * @return boolean True means unregistered successfully.
-         */
-        public function unregister($name)
-        {
-        }
-        /**
-         * Retrieves a registered payment method.
-         *
-         * @param string $name Payment method name.
-         * @return PaymentMethodTypeInterface|null The registered payment method, or null if it is not registered.
-         */
-        public function get_registered($name)
-        {
-        }
-        /**
-         * Retrieves all registered payment methods.
-         *
-         * @return PaymentMethodTypeInterface[]
-         */
-        public function get_all_registered()
-        {
-        }
-        /**
-         * Checks if a payment method is registered.
-         *
-         * @param string $name Payment method name.
-         * @return bool True if the payment method is registered, false otherwise.
-         */
-        public function is_registered($name)
-        {
-        }
+        protected $registry_identifier = 'payment_method_type';
         /**
          * Retrieves all registered payment methods that are also active.
          *
@@ -24733,15 +25771,15 @@ namespace Automattic\WooCommerce\Blocks\Payments {
         {
         }
         /**
-         * Gets an array of all registered payment method script handles.
+         * Gets an array of all registered payment method script handles, but only for active payment methods.
          *
          * @return string[]
          */
-        public function get_all_registered_script_handles()
+        public function get_all_active_payment_method_script_dependencies()
         {
         }
         /**
-         * Gets an array of all registered payment method script data.
+         * Gets an array of all registered payment method script data, but only for active payment methods.
          *
          * @return array
          */
@@ -25278,19 +26316,6 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
         {
         }
         /**
-         * For non-GET endpoints, require and validate a nonce to prevent CSRF attacks.
-         *
-         * Nonces will mismatch if the logged in session cookie is different! If using a client to test, set this cookie
-         * to match the logged in cookie in your browser.
-         *
-         * @throws RouteException On error.
-         *
-         * @param \WP_REST_Request $request Request object.
-         */
-        protected function check_nonce(\WP_REST_Request $request)
-        {
-        }
-        /**
          * Get route response for GET requests.
          *
          * When implemented, should return a \WP_REST_Response.
@@ -25347,6 +26372,19 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
         {
         }
         /**
+         * Get route response when something went wrong and the supplied error is a WP_Error. This currently only happens
+         * when an item in the cart is out of stock, partially out of stock, can only be bought individually, or when the
+         * item is not purchasable.
+         *
+         * @param WP_Error $error_object The WP_Error object containing the error.
+         * @param int      $http_status_code HTTP status. Defaults to 500.
+         * @param array    $additional_data  Extra data (key value pairs) to expose in the error response.
+         * @return WP_Error WP Error object.
+         */
+        protected function get_route_error_response_from_object($error_object, $http_status_code = 500, $additional_data = [])
+        {
+        }
+        /**
          * Prepare a single item for response.
          *
          * @param mixed            $item Item to format to schema.
@@ -25394,12 +26432,6 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
         public function get_collection_params()
         {
         }
-        /**
-         * Makes the cart and sessions available to a route by loading them from core.
-         */
-        protected function maybe_load_cart()
-        {
-        }
     }
     /**
      * Abstract Cart Route
@@ -25409,12 +26441,59 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
     abstract class AbstractCartRoute extends \Automattic\WooCommerce\Blocks\StoreApi\Routes\AbstractRoute
     {
         /**
+         * Schema class for this route's response.
+         *
+         * @var AbstractSchema|CartSchema
+         */
+        protected $schema;
+        /**
+         * Schema class for the cart.
+         *
+         * @var CartSchema
+         */
+        protected $cart_schema;
+        /**
+         * Cart controller class instance.
+         *
+         * @var CartController
+         */
+        protected $cart_controller;
+        /**
+         * Constructor accepts two types of schema; one for the item being returned, and one for the cart as a whole. These
+         * may be the same depending on the route.
+         *
+         * @param CartSchema     $cart_schema Schema class for the cart.
+         * @param AbstractSchema $item_schema Schema class for this route's items if it differs from the cart schema.
+         * @param CartController $cart_controller Cart controller class.
+         */
+        public function __construct(\Automattic\WooCommerce\Blocks\StoreApi\Schemas\CartSchema $cart_schema, \Automattic\WooCommerce\Blocks\StoreApi\Schemas\AbstractSchema $item_schema = null, \Automattic\WooCommerce\Blocks\StoreApi\Utilities\CartController $cart_controller)
+        {
+        }
+        /**
          * Get the route response based on the type of request.
          *
          * @param \WP_REST_Request $request Request object.
          * @return \WP_Error|\WP_REST_Response
          */
         public function get_response(\WP_REST_Request $request)
+        {
+        }
+        /**
+         * Add nonce headers to a response object.
+         *
+         * @param \WP_REST_Response $response The response object.
+         * @return \WP_REST_Response
+         */
+        protected function add_nonce_headers(\WP_REST_Response $response)
+        {
+        }
+        /**
+         * Checks if a nonce is required for the route.
+         *
+         * @param \WP_REST_Request $request Request.
+         * @return bool
+         */
+        protected function requires_nonce(\WP_REST_Request $request)
         {
         }
         /**
@@ -25429,6 +26508,18 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
          * @return void
          */
         protected function maybe_release_stock()
+        {
+        }
+        /**
+         * For non-GET endpoints, require and validate a nonce to prevent CSRF attacks.
+         *
+         * Nonces will mismatch if the logged in session cookie is different! If using a client to test, set this cookie
+         * to match the logged in cookie in your browser.
+         *
+         * @param \WP_REST_Request $request Request object.
+         * @return \WP_Error|boolean
+         */
+        protected function check_nonce(\WP_REST_Request $request)
         {
         }
         /**
@@ -25478,6 +26569,50 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
          * @return int
          */
         protected function get_term_count($taxonomy, $args)
+        {
+        }
+    }
+    /**
+     * Batch Route class.
+     *
+     * @internal This API is used internally by Blocks--it is still in flux and may be subject to revisions.
+     */
+    class Batch extends \Automattic\WooCommerce\Blocks\StoreApi\Routes\AbstractRoute implements \Automattic\WooCommerce\Blocks\StoreApi\Routes\RouteInterface
+    {
+        /**
+         * Get the path of this REST route.
+         *
+         * @return string
+         */
+        public function get_path()
+        {
+        }
+        /**
+         * Constructor.
+         */
+        public function __construct()
+        {
+        }
+        /**
+         * Get arguments for this REST route.
+         *
+         * @return array An array of endpoints.
+         */
+        public function get_args()
+        {
+        }
+        /**
+         * Get the route response.
+         *
+         * @see WP_REST_Server::serve_batch_request_v1
+         * https://developer.wordpress.org/reference/classes/wp_rest_server/serve_batch_request_v1/
+         *
+         * @throws RouteException On error.
+         *
+         * @param WP_REST_Request $request Request object.
+         * @return WP_REST_Response
+         */
+        public function get_response(\WP_REST_Request $request)
         {
         }
     }
@@ -25931,28 +27066,6 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
     class CartUpdateCustomer extends \Automattic\WooCommerce\Blocks\StoreApi\Routes\AbstractCartRoute
     {
         /**
-         * Billing address schema instance.
-         *
-         * @var BillingAddressSchema
-         */
-        protected $billing_address_schema;
-        /**
-         * Shipping address schema instance.
-         *
-         * @var ShippingAddressSchema
-         */
-        protected $shipping_address_schema;
-        /**
-         * Constructor.
-         *
-         * @param CartSchema            $schema Schema class for this route.
-         * @param ShippingAddressSchema $shipping_address_schema Billing address schema class for this route.
-         * @param BillingAddressSchema  $billing_address_schema Billing address schema class for this route.
-         */
-        public function __construct(\Automattic\WooCommerce\Blocks\StoreApi\Schemas\CartSchema $schema, \Automattic\WooCommerce\Blocks\StoreApi\Schemas\ShippingAddressSchema $shipping_address_schema, \Automattic\WooCommerce\Blocks\StoreApi\Schemas\BillingAddressSchema $billing_address_schema)
-        {
-        }
-        /**
          * Get the namespace for this route.
          *
          * @return string
@@ -26026,7 +27139,7 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
      *
      * @internal This API is used internally by Blocks--it is still in flux and may be subject to revisions.
      */
-    class Checkout extends \Automattic\WooCommerce\Blocks\StoreApi\Routes\AbstractRoute
+    class Checkout extends \Automattic\WooCommerce\Blocks\StoreApi\Routes\AbstractCartRoute
     {
         /**
          * Holds the current order being processed.
@@ -26034,6 +27147,24 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
          * @var WC_Order
          */
         private $order = null;
+        /**
+         * Order controller class instance.
+         *
+         * @var OrderController
+         */
+        protected $order_controller;
+        /**
+         * Constructor accepts two types of schema; one for the item being returned, and one for the cart as a whole. These
+         * may be the same depending on the route.
+         *
+         * @param CartSchema      $cart_schema Schema class for the cart.
+         * @param AbstractSchema  $item_schema Schema class for this route's items if it differs from the cart schema.
+         * @param CartController  $cart_controller Cart controller class.
+         * @param OrderController $order_controller Order controller class.
+         */
+        public function __construct(\Automattic\WooCommerce\Blocks\StoreApi\Schemas\CartSchema $cart_schema, \Automattic\WooCommerce\Blocks\StoreApi\Schemas\AbstractSchema $item_schema = null, \Automattic\WooCommerce\Blocks\StoreApi\Utilities\CartController $cart_controller, \Automattic\WooCommerce\Blocks\StoreApi\Utilities\OrderController $order_controller)
+        {
+        }
         /**
          * Get the path of this REST route.
          *
@@ -26043,12 +27174,12 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
         {
         }
         /**
-         * Enforce nonces for all checkout endpoints.
+         * Checks if a nonce is required for the route.
          *
-         * @param WP_REST_Request $request Request object.
-         * @return WP_Error|WP_REST_Response
+         * @param \WP_REST_Request $request Request.
+         * @return bool
          */
-        public function get_response(\WP_REST_Request $request)
+        protected function requires_nonce(\WP_REST_Request $request)
         {
         }
         /**
@@ -26101,7 +27232,10 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
          * 5. Process Payment
          *
          * @throws RouteException On error.
+         * @throws InvalidStockLevelsInCartException On error.
+         *
          * @param WP_REST_Request $request Request object.
+         *
          * @return WP_REST_Response
          */
         protected function get_route_post_response(\WP_REST_Request $request)
@@ -26117,6 +27251,29 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
          * @return WP_Error WP Error object.
          */
         protected function get_route_error_response($error_code, $error_message, $http_status_code = 500, $additional_data = [])
+        {
+        }
+        /**
+         * Get route response when something went wrong.
+         *
+         * @param WP_Error $error_object User facing error message.
+         * @param int      $http_status_code HTTP status. Defaults to 500.
+         * @param array    $additional_data  Extra data (key value pairs) to expose in the error response.
+         * @return WP_Error WP Error object.
+         */
+        protected function get_route_error_response_from_object($error_object, $http_status_code = 500, $additional_data = [])
+        {
+        }
+        /**
+         * Adds additional data to the WP_Error object.
+         *
+         * @param WP_Error $error The error object to add the cart to.
+         * @param array    $data The data to add to the error object.
+         * @param int      $http_status_code The HTTP status code this error should return.
+         * @param bool     $include_cart Whether the cart should be included in the error data.
+         * @returns WP_Error The WP_Error with the cart added.
+         */
+        private function add_data_to_error_object($error, $data, $http_status_code, bool $include_cart = false)
         {
         }
         /**
@@ -26227,7 +27384,6 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Routes {
          *
          * @internal CreateAccount class includes feature gating logic (i.e. this may not create an account depending on build).
          * @internal Checkout signup is feature gated to WooCommerce 4.7 and newer; Because it requires updated my-account/lost-password screen in 4.7+ for setting initial password.
-         * @todo OrderController (and CartController) should be injected into Checkout Route Class.
          *
          * @throws RouteException API error object with error details.
          * @param WP_REST_Request $request Request object.
@@ -27416,43 +28572,43 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Schemas {
          *
          * @var CartItemSchema
          */
-        protected $item_schema;
+        public $item_schema;
         /**
          * Coupon schema instance.
          *
          * @var CartCouponSchema
          */
-        protected $coupon_schema;
+        public $coupon_schema;
         /**
          * Fee schema instance.
          *
          * @var CartFeeSchema
          */
-        protected $fee_schema;
+        public $fee_schema;
         /**
          * Shipping rates schema instance.
          *
          * @var CartShippingRateSchema
          */
-        protected $shipping_rate_schema;
+        public $shipping_rate_schema;
         /**
          * Shipping address schema instance.
          *
          * @var ShippingAddressSchema
          */
-        protected $shipping_address_schema;
+        public $shipping_address_schema;
         /**
          * Billing address schema instance.
          *
          * @var BillingAddressSchema
          */
-        protected $billing_address_schema;
+        public $billing_address_schema;
         /**
          * Error schema instance.
          *
          * @var ErrorSchema
          */
-        protected $error_schema;
+        public $error_schema;
         /**
          * Constructor.
          *
@@ -27715,7 +28871,7 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Schemas {
         {
         }
         /**
-         * Convert a WooCommerce product into an object suitable for the response.
+         * Convert a WP_Error into an object suitable for the response.
          *
          * @param \WP_Error $error Error object.
          * @return array
@@ -28071,6 +29227,12 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Utilities {
     class CartController
     {
         /**
+         * Makes the cart and sessions available to a route by loading them from core.
+         */
+        public function load_cart()
+        {
+        }
+        /**
          * Based on the core cart class but returns errors rather than rendering notices directly.
          *
          * @todo Overriding the core add_to_cart method was necessary because core outputs notices when an item is added to
@@ -28108,18 +29270,57 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Utilities {
         {
         }
         /**
+         * Generates the error message for out of stock products and adds product names to it.
+         *
+         * @param string $singular The message to use when only one product is in the list.
+         * @param string $plural The message to use when more than one product is in the list.
+         * @param array  $items The list of cart items whose names should be inserted into the message.
+         * @returns string The translated and correctly pluralised message.
+         */
+        private function add_product_names_to_message($singular, $plural, $items)
+        {
+        }
+        /**
+         * Takes a string describing the type of stock extension, whether there is a single product or multiple products
+         * causing this exception and returns an appropriate error message.
+         *
+         * @param string $exception_type     The type of exception encountered.
+         * @param string $singular_or_plural Whether to get the error message for a single product or multiple.
+         *
+         * @return string
+         */
+        private function get_error_message_for_stock_exception_type($exception_type, $singular_or_plural)
+        {
+        }
+        /**
          * Validate all items in the cart and check for errors.
          *
-         * @throws RouteException Exception if invalid data is detected.
+         * @throws InvalidStockLevelsInCartException Exception if invalid data is detected due to insufficient stock levels.
          */
         public function validate_cart_items()
         {
         }
         /**
+         * This method will take arrays of exceptions relating to stock, and will convert them to a WP_Error object.
+         *
+         * @param TooManyInCartException[]     $too_many_in_cart_products         Array of TooManyInCartExceptions.
+         * @param NotPurchasableException[]    $not_purchasable_products         Array of NotPurchasableExceptions.
+         * @param PartialOutOfStockException[] $partial_out_of_stock_products Array of PartialOutOfStockExceptions.
+         * @param OutOfStockException[]        $out_of_stock_products                Array of OutOfStockExceptions.
+         *
+         * @return WP_Error[] The WP_Error object returned. Will have errors if any exceptions were in the args. It will be empty if they do not.
+         */
+        private function stock_exceptions_to_wp_errors($too_many_in_cart_products, $not_purchasable_products, $partial_out_of_stock_products, $out_of_stock_products)
+        {
+        }
+        /**
          * Validates an existing cart item and returns any errors.
          *
-         * @throws RouteException Exception if invalid data is detected.
-         *
+         * @throws TooManyInCartException Exception if more than one product that can only be purchased individually is in
+         * the cart.
+         * @throws PartialOutOfStockException Exception if an item has a quantity greater than what is available in stock.
+         * @throws OutOfStockException Exception thrown when an item is entirely out of stock.
+         * @throws NotPurchasableException Exception thrown when an item is not purchasable.
          * @param array $cart_item Cart item array.
          */
         public function validate_cart_item($cart_item)
@@ -28136,7 +29337,7 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Utilities {
         /**
          * Validate all items in the cart and get a list of errors.
          *
-         * @throws RouteException Exception if invalid data is detected.
+         * @return WP_Error[] An array of WP_Errors describing the cart's error state.
          */
         public function get_cart_item_errors()
         {
@@ -28378,6 +29579,137 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Utilities {
         }
     }
     /**
+     * InvalidStockLevelsInCartException class.
+     *
+     * @internal This API is used internally by Blocks, this exception is thrown if any items are out of stock
+     * after each product on a draft order has been stock checked.
+     */
+    class InvalidStockLevelsInCartException extends \Exception
+    {
+        /**
+         * Sanitized error code.
+         *
+         * @var string
+         */
+        public $error_code;
+        /**
+         * Additional error data.
+         *
+         * @var array
+         */
+        public $additional_data = [];
+        /**
+         * All errors to display to the user.
+         *
+         * @var WP_Error
+         */
+        public $error;
+        /**
+         * Setup exception.
+         *
+         * @param string   $error_code      Machine-readable error code, e.g `woocommerce_invalid_product_id`.
+         * @param WP_Error $error           The WP_Error object containing all errors relating to stock availability.
+         * @param array    $additional_data Extra data (key value pairs) to expose in the error response.
+         */
+        public function __construct($error_code, $error, $additional_data = [])
+        {
+        }
+        /**
+         * Returns the error code.
+         *
+         * @return string
+         */
+        public function getErrorCode()
+        {
+        }
+        /**
+         * Returns the list of messages.
+         *
+         * @return WP_Error
+         */
+        public function getError()
+        {
+        }
+        /**
+         * Returns additional error data.
+         *
+         * @return array
+         */
+        public function getAdditionalData()
+        {
+        }
+    }
+    /**
+     * StockAvailabilityException class.
+     *
+     * @internal This API is used internally by Blocks, this exception is thrown when more than one of a product that
+     * can only be purchased individually is in a cart.
+     */
+    class StockAvailabilityException extends \Exception
+    {
+        /**
+         * Sanitized error code.
+         *
+         * @var string
+         */
+        public $error_code;
+        /**
+         * The name of the product that can only be purchased individually.
+         *
+         * @var string
+         */
+        public $product_name;
+        /**
+         * Additional error data.
+         *
+         * @var array
+         */
+        public $additional_data = [];
+        /**
+         * Setup exception.
+         *
+         * @param string $error_code       Machine-readable error code, e.g `woocommerce_invalid_product_id`.
+         * @param string $product_name     The name of the product that can only be purchased individually.
+         * @param array  $additional_data  Extra data (key value pairs) to expose in the error response.
+         */
+        public function __construct($error_code, $product_name, $additional_data = [])
+        {
+        }
+        /**
+         * Returns the error code.
+         *
+         * @return string
+         */
+        public function getErrorCode()
+        {
+        }
+        /**
+         * Returns additional error data.
+         *
+         * @return array
+         */
+        public function getAdditionalData()
+        {
+        }
+        /**
+         * Returns the product name.
+         *
+         * @return string
+         */
+        public function getProductName()
+        {
+        }
+    }
+    /**
+     * NotPurchasableException class.
+     *
+     * @internal This API is used internally by Blocks, this exception is thrown when an item in the cart is not able to be
+     * purchased.
+     */
+    class NotPurchasableException extends \Automattic\WooCommerce\Blocks\StoreApi\Utilities\StockAvailabilityException
+    {
+    }
+    /**
      * NoticeHandler class.
      * Helper class to convert notices to exceptions.
      *
@@ -28548,6 +29880,15 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Utilities {
         }
     }
     /**
+     * OutOfStockException class.
+     *
+     * @internal This API is used internally by Blocks, this exception is thrown when an item in a draft order is out
+     * of stock completely.
+     */
+    class OutOfStockException extends \Automattic\WooCommerce\Blocks\StoreApi\Utilities\StockAvailabilityException
+    {
+    }
+    /**
      * Pagination class.
      *
      * @internal This API is used internally by Blocks--it is still in flux and may be subject to revisions.
@@ -28596,6 +29937,15 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Utilities {
         protected function add_page_link(&$response, $name, $page, $link_base)
         {
         }
+    }
+    /**
+     * PartialOutOfStockException class.
+     *
+     * @internal This API is used internally by Blocks, this exception is thrown when an item in a draft order has a
+     * quantity greater than what is available in stock.
+     */
+    class PartialOutOfStockException extends \Automattic\WooCommerce\Blocks\StoreApi\Utilities\StockAvailabilityException
+    {
     }
     /**
      * Product Query class.
@@ -28751,8 +30101,34 @@ namespace Automattic\WooCommerce\Blocks\StoreApi\Utilities {
         {
         }
     }
+    /**
+     * TooManyInCartException class.
+     *
+     * @internal This API is used internally by Blocks, this exception is thrown when more than one of a product that
+     * can only be purchased individually is in a cart.
+     */
+    class TooManyInCartException extends \Automattic\WooCommerce\Blocks\StoreApi\Utilities\StockAvailabilityException
+    {
+    }
 }
 namespace Automattic\WooCommerce\Blocks\Utils {
+    /**
+     * ArrayUtils class used for custom functions to operate on arrays
+     */
+    class ArrayUtils
+    {
+        /**
+         * Join a string with a natural language conjunction at the end.
+         *
+         * @param array $array  The array to join together with the natural language conjunction.
+         * @param bool  $enclose_items_with_quotes Whether each item in the array should be enclosed within quotation marks.
+         *
+         * @return string a string containing a list of items and a natural language conjuction.
+         */
+        public static function natural_language_join($array, $enclose_items_with_quotes = false)
+        {
+        }
+    }
     /**
      * BlocksWpQuery query.
      *

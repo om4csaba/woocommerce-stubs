@@ -6410,6 +6410,14 @@ namespace {
         {
         }
         /**
+         * Handles the output of a full-width block.
+         *
+         * @param array $section Section data.
+         */
+        public static function output_promotion_block($section)
+        {
+        }
+        /**
          * Handles the outputting of featured sections
          *
          * @param array $sections Section data.
@@ -6460,9 +6468,11 @@ namespace {
         /**
          * Install WooCommerce Payments from the Extensions screens.
          *
+         * @param string $section Optional. Extenstions tab.
+         *
          * @return void
          */
-        public static function install_woocommerce_payments_addon()
+        public static function install_woocommerce_payments_addon($section = '_featured')
         {
         }
         /**
@@ -6806,6 +6816,78 @@ namespace {
         }
     }
     /**
+     * WC_Admin_Dashboard_Setup Class.
+     */
+    class WC_Admin_Dashboard_Setup
+    {
+        /**
+         * List of tasks.
+         *
+         * @var array
+         */
+        private $tasks = array('store_details' => array('completed' => \false, 'button_link' => 'admin.php?page=wc-admin&path=%2Fsetup-wizard'), 'products' => array('completed' => \false, 'button_link' => 'admin.php?page=wc-admin&task=products'), 'woocommerce-payments' => array('completed' => \false, 'button_link' => 'admin.php?page=wc-admin&path=%2Fpayments%2Fconnect'), 'payments' => array('completed' => \false, 'button_link' => 'admin.php?page=wc-admin&task=payments'), 'tax' => array('completed' => \false, 'button_link' => 'admin.php?page=wc-admin&task=tax'), 'shipping' => array('completed' => \false, 'button_link' => 'admin.php?page=wc-admin&task=shipping'), 'appearance' => array('completed' => \false, 'button_link' => 'admin.php?page=wc-admin&task=appearance'));
+        /**
+         * # of completed tasks.
+         *
+         * @var int
+         */
+        private $completed_tasks_count = 0;
+        /**
+         * WC_Admin_Dashboard_Setup constructor.
+         */
+        public function __construct()
+        {
+        }
+        /**
+         * Render meta box output.
+         */
+        public function render()
+        {
+        }
+        /**
+         * Populate tasks from the database.
+         */
+        private function populate_general_tasks()
+        {
+        }
+        /**
+         * Getter for $tasks
+         *
+         * @return array
+         */
+        public function get_tasks()
+        {
+        }
+        /**
+         * Return # of completed tasks
+         */
+        public function get_completed_tasks_count()
+        {
+        }
+        /**
+         * Get the next task.
+         *
+         * @return array|null
+         */
+        private function get_next_task()
+        {
+        }
+        /**
+         * Check to see if we should display the widget
+         *
+         * @return bool
+         */
+        private function should_display_widget()
+        {
+        }
+        /**
+         * Populate payment tasks's visibility and completion
+         */
+        private function populate_payment_tasks()
+        {
+        }
+    }
+    /**
      * WC_Admin_Dashboard Class.
      */
     class WC_Admin_Dashboard
@@ -6826,6 +6908,14 @@ namespace {
          * Register the network order dashboard widget.
          */
         public function register_network_order_widget()
+        {
+        }
+        /**
+         * Check to see if we should display the widget.
+         *
+         * @return bool
+         */
+        private function should_display_widget()
         {
         }
         /**
@@ -6858,8 +6948,10 @@ namespace {
         }
         /**
          * Show stock data is status widget.
+         *
+         * @param bool $is_wc_admin_disabled if woocommerce admin is disabled.
          */
-        private function status_widget_stock_rows()
+        private function status_widget_stock_rows($is_wc_admin_disabled)
         {
         }
         /**
@@ -6872,6 +6964,27 @@ namespace {
          * Network orders widget.
          */
         public function network_orders()
+        {
+        }
+        /**
+         * Gets the sales performance data from the new WooAdmin store.
+         *
+         * @return stdClass|WP_Error|WP_REST_Response
+         */
+        private function get_wc_admin_performance_data()
+        {
+        }
+        /**
+         * Overwrites the original sparkline to use the new reports data if WooAdmin is enabled.
+         * Prepares a sparkline to show sales in the last X days.
+         *
+         * @param  WC_Admin_Report $reports old class for getting reports.
+         * @param  bool            $is_wc_admin_disabled If WC Admin is disabled or not.
+         * @param  int             $id ID of the product to show. Blank to get all orders.
+         * @param  string          $type Type of sparkline to get. Ignored if ID is not set.
+         * @return string
+         */
+        private function sales_sparkline($reports, $is_wc_admin_disabled = \false, $id = '', $type = 'sales')
         {
         }
     }
@@ -7509,6 +7622,7 @@ namespace {
         /**
          * Parses query to create nonces when available.
          *
+         * @deprecated 5.4.0
          * @param object $response The WP_REST_Response we're working with.
          * @return object $response The prepared WP_REST_Response object.
          */
@@ -11105,7 +11219,7 @@ namespace {
         {
         }
         /**
-         * Render columm: thumb.
+         * Render column: thumb.
          */
         protected function render_thumb_column()
         {
@@ -11117,37 +11231,37 @@ namespace {
         {
         }
         /**
-         * Render columm: sku.
+         * Render column: sku.
          */
         protected function render_sku_column()
         {
         }
         /**
-         * Render columm: price.
+         * Render column: price.
          */
         protected function render_price_column()
         {
         }
         /**
-         * Render columm: product_cat.
+         * Render column: product_cat.
          */
         protected function render_product_cat_column()
         {
         }
         /**
-         * Render columm: product_tag.
+         * Render column: product_tag.
          */
         protected function render_product_tag_column()
         {
         }
         /**
-         * Render columm: featured.
+         * Render column: featured.
          */
         protected function render_featured_column()
         {
         }
         /**
-         * Render columm: is_in_stock.
+         * Render column: is_in_stock.
          */
         protected function render_is_in_stock_column()
         {
@@ -12636,8 +12750,6 @@ namespace {
     /**
      * WC_Report_Sales_By_Category
      *
-     * @author      WooThemes
-     * @category    Admin
      * @package     WooCommerce\Admin\Reports
      * @version     2.1.0
      */
@@ -12986,7 +13098,7 @@ namespace {
         /**
          * Add this page to settings.
          *
-         * @param array $pages
+         * @param array $pages The pages array to add this page to.
          *
          * @return mixed
          */
@@ -13866,6 +13978,12 @@ namespace {
         {
         }
         /**
+         * Ajax request handling for page searching.
+         */
+        public static function json_search_pages()
+        {
+        }
+        /**
          * Ajax request handling for categories ordering.
          */
         public static function term_ordering()
@@ -14027,6 +14145,17 @@ namespace {
          * @used-by bulk_edit_variations
          */
         private static function variation_bulk_action_variable_stock($variations, $data)
+        {
+        }
+        /**
+         * Bulk action - Set Low Stock Amount.
+         *
+         * @param array $variations List of variations.
+         * @param array $data Data to set.
+         *
+         * @used-by bulk_edit_variations
+         */
+        private static function variation_bulk_action_variable_low_stock_amount($variations, $data)
         {
         }
         /**
@@ -14217,6 +14346,7 @@ namespace {
          * @uses WC_AJAX::variation_bulk_action_toggle_virtual()
          * @uses WC_AJAX::variation_bulk_action_toggle_downloadable()
          * @uses WC_AJAX::variation_bulk_action_toggle_enabled
+         * @uses WC_AJAX::variation_bulk_action_variable_low_stock_amount()
          */
         public static function bulk_edit_variations()
         {
@@ -15058,6 +15188,21 @@ namespace {
          * This prevents caching of the wrong data for this request.
          */
         public static function geolocation_ajax_redirect()
+        {
+        }
+        /**
+         * Updates the `woocommerce_geo_hash` cookie, which is used to help ensure we display
+         * the correct pricing etc to customers, according to their billing country.
+         *
+         * Note that:
+         *
+         * A) This only sets the cookie if the default customer address is set to "Geolocate (with
+         *    Page Caching Support)".
+         *
+         * B) It is hooked into the `wc_ajax_update_order_review` action, which has the benefit of
+         *    ensuring we update the cookie any time the billing country is changed.
+         */
+        public static function update_geolocation_hash()
         {
         }
         /**
@@ -17538,6 +17683,14 @@ namespace {
         {
         }
         /**
+         * Validate product reviews if requires a verified owner.
+         *
+         * @param int $comment_post_id Post ID.
+         */
+        public static function validate_product_review_verified_owners($comment_post_id)
+        {
+        }
+        /**
          * Determines if a comment is of the default type.
          *
          * Prior to WordPress 5.5, '' was the default comment type.
@@ -19290,6 +19443,19 @@ namespace {
          * @return bool
          */
         public function has_calculated_shipping()
+        {
+        }
+        /**
+         * Indicates if the customer has a non-empty shipping address.
+         *
+         * Note that this does not indicate if the customer's shipping address
+         * is complete, only that one or more fields are populated.
+         *
+         * @since 5.3.0
+         *
+         * @return bool
+         */
+        public function has_shipping_address()
         {
         }
         /**
@@ -26710,6 +26876,14 @@ namespace {
         {
         }
         /**
+         * Initial registration of privacy erasers and exporters.
+         *
+         * Due to the use of translation functions, this should run only after plugins loaded.
+         */
+        public function register_erasers_exporters()
+        {
+        }
+        /**
          * Add privacy policy content for the privacy policy page.
          *
          * @since 3.4.0
@@ -29461,6 +29635,16 @@ namespace {
         {
         }
         /**
+         * Get session unique ID for requests if session is initialized or user ID if logged in.
+         * Introduced to help with unit tests.
+         *
+         * @since 5.3.0
+         * @return string
+         */
+        public function get_customer_unique_id()
+        {
+        }
+        /**
          * Get the session cookie, if set. Otherwise return false.
          *
          * Session cookies without a customer ID are invalid.
@@ -29509,10 +29693,23 @@ namespace {
         /**
          * When a user is logged out, ensure they have a unique nonce by using the customer/session ID.
          *
+         * @deprecated 5.3.0
          * @param int $uid User ID.
-         * @return string
+         * @return int|string
          */
         public function nonce_user_logged_out($uid)
+        {
+        }
+        /**
+         * When a user is logged out, ensure they have a unique nonce to manage cart and more using the customer/session ID.
+         * This filter runs everything `wp_verify_nonce()` and `wp_create_nonce()` gets called.
+         *
+         * @since 5.3.0
+         * @param int    $uid    User ID.
+         * @param string $action The nonce action.
+         * @return int|string
+         */
+        public function maybe_update_nonce_user_logged_out($uid, $action)
         {
         }
         /**
@@ -29667,7 +29864,7 @@ namespace {
         {
         }
         /**
-         * Set ID for the rate. This is usually a combination of the method and instance IDs.
+         * Get ID for the rate. This is usually a combination of the method and instance IDs.
          *
          * @since 3.2.0
          * @return string
@@ -29676,7 +29873,7 @@ namespace {
         {
         }
         /**
-         * Set shipping method ID the rate belongs to.
+         * Get shipping method ID the rate belongs to.
          *
          * @since 3.2.0
          * @return string
@@ -29685,7 +29882,7 @@ namespace {
         {
         }
         /**
-         * Set instance ID the rate belongs to.
+         * Get instance ID the rate belongs to.
          *
          * @since 3.2.0
          * @return int
@@ -29694,7 +29891,7 @@ namespace {
         {
         }
         /**
-         * Set rate label.
+         * Get rate label.
          *
          * @return string
          */
@@ -29702,7 +29899,7 @@ namespace {
         {
         }
         /**
-         * Set rate cost.
+         * Get rate cost.
          *
          * @since 3.2.0
          * @return string
@@ -29711,7 +29908,7 @@ namespace {
         {
         }
         /**
-         * Set rate taxes.
+         * Get rate taxes.
          *
          * @since 3.2.0
          * @return array
@@ -31450,11 +31647,44 @@ namespace {
         {
         }
         /**
-         * Get all order data.
+         * Get order counts.
+         *
+         * @return array
+         */
+        private static function get_order_counts()
+        {
+        }
+        /**
+         * Combine all order data.
          *
          * @return array
          */
         private static function get_orders()
+        {
+        }
+        /**
+         * Get order totals.
+         *
+         * @since 5.4.0
+         * @return array
+         */
+        private static function get_order_totals()
+        {
+        }
+        /**
+         * Get last order date.
+         *
+         * @return string
+         */
+        private static function get_order_dates()
+        {
+        }
+        /**
+         * Get order details by gateway.
+         *
+         * @return array
+         */
+        private static function get_orders_by_gateway()
         {
         }
         /**
@@ -31511,15 +31741,6 @@ namespace {
          * @return array
          */
         private static function get_admin_user_agents()
-        {
-        }
-        /**
-         * Get order totals
-         *
-         * @deprecated 5.1.0 Logic moved to get_orders.
-         * @return array
-         */
-        public static function get_order_totals()
         {
         }
         /**
@@ -32222,7 +32443,7 @@ namespace {
          *
          * @var string
          */
-        public $version = '5.1.0';
+        public $version = '5.4.0';
         /**
          * WooCommerce Schema version.
          *
@@ -32360,6 +32581,14 @@ namespace {
          * @since 2.3
          */
         private function init_hooks()
+        {
+        }
+        /**
+         * Add woocommerce_inbox_variant for the Remote Inbox Notification.
+         *
+         * P2 post can be found at https://wp.me/paJDYF-1uJ.
+         */
+        public function add_woocommerce_inbox_variant()
         {
         }
         /**
@@ -43813,6 +44042,12 @@ namespace {
          */
         protected $taxonomy = '';
         /**
+         * Cached taxonomies by attribute id.
+         *
+         * @var array
+         */
+        protected $taxonomies_by_id = array();
+        /**
          * Register the routes for terms.
          */
         public function register_routes()
@@ -44074,6 +44309,12 @@ namespace {
          */
         protected $attribute = '';
         /**
+         * Cached taxonomies by attribute id.
+         *
+         * @var array
+         */
+        protected $taxonomies_by_id = array();
+        /**
          * Register the routes for product attributes.
          */
         public function register_routes()
@@ -44137,7 +44378,7 @@ namespace {
         /**
          * Get all attributes.
          *
-         * @param WP_REST_Request $request
+         * @param WP_REST_Request $request The request to get the attributes from.
          * @return array
          */
         public function get_items($request)
@@ -44182,9 +44423,9 @@ namespace {
         /**
          * Prepare a single product attribute output for response.
          *
-         * @param obj $item Term object.
-         * @param WP_REST_Request $request
-         * @return WP_REST_Response $response
+         * @param obj             $item Term object.
+         * @param WP_REST_Request $request The request to process.
+         * @return WP_REST_Response
          */
         public function prepare_item_for_response($item, $request)
         {
@@ -44236,8 +44477,8 @@ namespace {
          * Validate attribute slug.
          *
          * @deprecated 3.2.0
-         * @param string $slug
-         * @param bool $new_data
+         * @param string $slug The slug to validate.
+         * @param bool   $new_data If we are creating new data.
          * @return bool|WP_Error
          */
         protected function validate_attribute_slug($slug, $new_data = \true)
@@ -45356,7 +45597,7 @@ namespace {
          * Take tax data from the request and return the updated or newly created rate.
          *
          * @param WP_REST_Request $request Full details about the request.
-         * @param stdClass|null $current Existing tax object.
+         * @param stdClass|null   $current Existing tax object.
          * @return object
          */
         protected function create_or_update_tax($request, $current = \null)
@@ -45401,8 +45642,9 @@ namespace {
         /**
          * Prepare a single tax output for response.
          *
-         * @param stdClass $tax Tax object.
+         * @param stdClass        $tax     Tax object.
          * @param WP_REST_Request $request Request object.
+         *
          * @return WP_REST_Response $response Response data.
          */
         public function prepare_item_for_response($tax, $request)
@@ -45415,6 +45657,17 @@ namespace {
          * @return array Links for the given tax.
          */
         protected function prepare_links($tax)
+        {
+        }
+        /**
+         * Add tax rate locales to the response array.
+         *
+         * @param array    $data Response data.
+         * @param stdClass $tax  Tax object.
+         *
+         * @return array
+         */
+        protected function add_tax_rate_locales($data, $tax)
         {
         }
         /**
@@ -46634,7 +46887,7 @@ namespace {
         {
         }
         /**
-         * Get the Order's schema, conforming to JSON Schema.
+         * Get the refund schema, conforming to JSON Schema.
          *
          * @return array
          */
@@ -48296,6 +48549,16 @@ namespace {
         public function execute_tool($tool)
         {
         }
+        /**
+         * Get a printable name for a callback.
+         *
+         * @param mixed  $callback The callback to get a name for.
+         * @param string $default The default name, to be returned when the callback is an inline function.
+         * @return string A printable name for the callback.
+         */
+        private function get_printable_callback_name($callback, $default)
+        {
+        }
     }
     /**
      * System status controller class.
@@ -49132,6 +49395,14 @@ namespace {
          * @return WP_Error|WC_Data The prepared item, or WP_Error object on failure.
          */
         protected function prepare_object_for_database($request, $creating = \false)
+        {
+        }
+        /**
+         * Get the refund schema, conforming to JSON Schema.
+         *
+         * @return array
+         */
+        public function get_item_schema()
         {
         }
     }
@@ -50178,6 +50449,14 @@ namespace {
          * @var string
          */
         protected $namespace = 'wc/v3';
+        /**
+         * Get the settings schema, conforming to JSON Schema.
+         *
+         * @return array
+         */
+        public function get_item_schema()
+        {
+        }
     }
     /**
      * REST API Shipping Zones class.
@@ -50253,6 +50532,52 @@ namespace {
          * @var string
          */
         protected $namespace = 'wc/v3';
+        /**
+         * Add tax rate locales to the response array.
+         *
+         * @param array    $data Response data.
+         * @param stdClass $tax  Tax object.
+         *
+         * @return array
+         */
+        protected function add_tax_rate_locales($data, $tax)
+        {
+        }
+        /**
+         * Get the taxes schema, conforming to JSON Schema.
+         *
+         * @return array
+         */
+        public function get_item_schema()
+        {
+        }
+        /**
+         * Create a single tax.
+         *
+         * @param WP_REST_Request $request Full details about the request.
+         * @return WP_Error|WP_REST_Response The response, or an error.
+         */
+        public function create_item($request)
+        {
+        }
+        /**
+         * Update a single tax.
+         *
+         * @param WP_REST_Request $request Full details about the request.
+         * @return WP_Error|WP_REST_Response The response, or an error.
+         */
+        public function update_item($request)
+        {
+        }
+        /**
+         * Convert array "cities" and "postcodes" parameters
+         * into semicolon-separated strings "city" and "postcode".
+         *
+         * @param WP_REST_Request $request The request to adjust.
+         */
+        private function adjust_cities_and_postcodes(&$request)
+        {
+        }
     }
     /**
      * REST API Webhooks controller class.
@@ -51342,7 +51667,7 @@ namespace {
          * Get shortcode type.
          *
          * @since  3.2.0
-         * @return array
+         * @return string
          */
         public function get_type()
         {
@@ -51830,18 +52155,6 @@ namespace {
          * Theme init.
          */
         public static function init()
-        {
-        }
-        /**
-         * Open the Twenty Twenty One wrapper.
-         */
-        public static function output_content_wrapper()
-        {
-        }
-        /**
-         * Close the Twenty Twenty One wrapper.
-         */
-        public static function output_content_wrapper_end()
         {
         }
         /**
@@ -52448,6 +52761,15 @@ namespace {
          * Send a Tracks even when Helper subscriptions are refreshed.
          */
         public function track_helper_subscriptions_refresh()
+        {
+        }
+        /**
+         * Send a Tracks event when addon is installed via the Extensions page.
+         *
+         * @param string $addon_id Addon slug.
+         * @param string $section  Extensions tab.
+         */
+        public function track_addon_install($addon_id, $section)
         {
         }
     }
@@ -57680,9 +58002,10 @@ namespace {
      * @param  int|WC_Product $product     Product instance or ID.
      * @param  WC_Order       $order       Order data.
      * @param  int            $qty         Quantity purchased.
+     * @param  WC_Order_Item  $item        Item of the order.
      * @return int|bool insert id or false on failure.
      */
-    function wc_downloadable_file_permission($download_id, $product, $order, $qty = 1)
+    function wc_downloadable_file_permission($download_id, $product, $order, $qty = 1, $item = \null)
     {
     }
     /**
@@ -58828,6 +59151,11 @@ namespace {
     }
     /**
      * Return low stock amount to determine if notification needs to be sent
+     *
+     * Since 5.2.0, this function no longer redirects from variation to its parent product.
+     * Low stock amount can now be attached to the variation itself and if it isn't, only
+     * then we check the parent product, and if it's not there, then we take the default
+     * from the store-wide setting.
      *
      * @param  WC_Product $product Product to get data from.
      * @since  3.5.0
@@ -60331,6 +60659,25 @@ namespace {
      * @return int[]
      */
     function wc_get_product_visibility_term_ids()
+    {
+    }
+    /**
+     * Recounts all terms.
+     *
+     * @since 5.2
+     * @return void
+     */
+    function wc_recount_all_terms()
+    {
+    }
+    /**
+     * Recounts terms by product.
+     *
+     * @since 5.2
+     * @param int $product_id The ID of the product.
+     * @return void
+     */
+    function _wc_recount_terms_by_product($product_id = '')
     {
     }
     /**
